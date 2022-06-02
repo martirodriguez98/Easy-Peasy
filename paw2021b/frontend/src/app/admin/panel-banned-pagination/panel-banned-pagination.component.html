@@ -1,0 +1,119 @@
+<div class="row panel-box">
+  <div *ngIf="bannedPr.results.length == 0" class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+    <p style="margin-left: 16px;">
+      {{'admin.panel.emptybanned' | translate}}
+    </p>
+  </div>
+  <div *ngIf="bannedPr.results.length > 0">
+    <div class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+      <button class="btn btn-link order-dropdown-btn " type="button" id="dropdownOrder"
+              data-bs-toggle="dropdown" aria-expanded="false">
+        <fa-icon [icon]=sortIcon
+                 data-bs-toggle="dropdown"
+                 aria-expanded="false"></fa-icon>
+        {{'search.orderBy' | translate}}
+      </button>
+      <button *ngIf="byUser" type="button" class="btn-outline filters-btn"
+              style="color:#cda434; background-color:dimgrey;cursor: default">
+        <fa-icon [icon]="userIcon" aria-hidden="true"></fa-icon>
+        {{'username' | translate}}
+      </button>
+      <button *ngIf="byId" type="button" class="btn-outline filters-btn"
+              style="color:#cda434; background-color:dimgrey;cursor: default">
+        <fa-icon [icon]="idIcon" aria-hidden="true"></fa-icon>
+        ID
+      </button>
+      <ul class="dropdown-menu">
+        <li class="list-dropdown">
+          <label class="orderBy-label">
+            <a class="dropdown-item">
+              <p class="orderBy">
+                <input id="order_by_id_username_ban" type="radio"
+                       class="form-order-input radio-btn" name="flexRadioDefault"
+                       (click)="changeBannedOrder('BY_USERNAME')"/>
+                {{'admin.panel.by_username' | translate}}
+              </p>
+            </a>
+          </label>
+          <label class="orderBy-label">
+            <a class="dropdown-item">
+              <p class="orderBy">
+                <input id="order_by_id_ban" type="radio"
+                       class="form-order-input radio-btn" name="flexRadioDefault"
+                       (click)="changeBannedOrder('BY_ID')" checked/>
+                {{'admin.panel.by_id' | translate}}
+              </p>
+            </a>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <div class="row justify-content-center panel-box" style="margin-bottom: 20px">
+      <table class="table table-user" align="center">
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: center">id</th>
+          <th scope="col" style="text-align: center">
+            {{'admin.panel.username' | translate}}
+          </th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let bu of bannedPr.results">
+          <th scope="row" style="text-align: center; vertical-align: middle">{{bu.id}}</th>
+          <td style="text-align: center; vertical-align: middle"><a class="user-profile"
+                                                                    [routerLink]="['/profile', bu.id]">{{bu.username}}</a>
+          </td>
+          <td style="text-align: center; width: 250px;padding-right: 0;padding-left: 0; min-width:13em">
+
+
+            <button type="button" class="btn btn-dark btn-ban" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#unbanModal' + bu.id">
+              <fa-icon [icon]=unbanIcon
+                       style="color: red"
+                       aria-hidden="true"></fa-icon>
+              {{'profile.unban' | translate}}
+            </button>
+            <div class="modal fade" [id]="'unbanModal' + bu.id" data-bs-backdrop="static"
+                 data-bs-keyboard="false"
+                 tabindex="-1" aria-labelledby="staticBackdropLabelUnban"
+                 aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabelUnban">
+                      {{'profile.unban.title' | translate}}
+                    </h5>
+                    <button type="button" class="btn btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <h4>
+                      {{'profile.unbanUser' | translate}}
+                    </h4>
+                  </div>
+                  <div class="modal-footer">
+                    <button (click)="tryUnban(bu.id)" type="submit"
+                            id="acceptUnbanBtn" name="adminBtn" data-bs-dismiss="modal"
+                            class="btn btn-outline-dark unban-btn">
+                      {{'profile.accept' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <app-pagination *ngIf="bannedPr.pages>1"
+                  (changePage)="onPageChange($event)"
+                  [current]="bannedPq.page"
+                  [pages]="bannedPr.pages">
+  </app-pagination>
+</div>

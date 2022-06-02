@@ -1,0 +1,405 @@
+<div *ngIf="!fetching" xmlns="http://www.w3.org/1999/html">
+  <div class="row w-100 justify-content-center align-items-center tabs-row">
+    <div class="col-8 tabs" style="margin-bottom: 20px;">
+      <ul class="nav nav-pills" role="tablist">
+        <li class="nav-item" role="presentation" >
+          <button class="nav-link btn-list active" id="recipes-tab" data-bs-toggle="pill" data-bs-target="#recipes" type="button" role="tab" aria-controls="recipes" aria-selected="false" (click)="changeTab('recipes')">
+            {{'search.recipes' | translate}}
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link btn-list" id="users-tab" data-bs-toggle="pill" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="true" (click)="changeTab('users')">
+            {{'search.profiles' | translate}}
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="search-box">
+      <div class="row w-100 justify-content-center align-items-center">
+        <div class="col-7 align-items-center">
+          <div class="row align-items-center justify-content-between" style="padding: 10px">
+
+            <div class="p-1 bg-light rounded rounded-pill shadow-sm">
+              <div class="input-group">
+                <input id="searchBarId" #searchBar placeholder="{{'input.searchPlaceholder' | translate }}"
+                       (keypress)="onSearchEnter($event,searchBar.value)" class="form-control rounded rounded-pill border-0 bg-light" aria-describedby="button-addon1"/>
+                <div class="input-group-append">
+                  <button id="buttonSearchForm" type="submit" class="btn btn-link"
+                          style="color:#93c021"><fa-icon [icon]="faSearch" aria-hidden="true" (click)="onSearch(searchBar.value)"
+                                                         style="color: #93c021"></fa-icon></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-1 align-items-center justify-content-center ">
+            <button class="btn btn-clear" (click)="onClearRecipes()">
+              <fa-icon [icon]="faXmark" aria-hidden="true" style="color: red"></fa-icon>
+              {{'search.clear' | translate}}
+            </button>
+          </div>
+
+        <div *ngIf="activeTab==='recipes'">
+          <div class="col-12 d-flex p-2 align-items-center justify-content-center categories-class">
+            <div class="dropdown">
+              <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                {{'search.searchBy.daytime' | translate}}
+              </button>
+              <ul class="dropdown-menu">
+                <li class="list-dropdown">
+                  <span *ngFor="let category of totalCategories; let i = index">
+                    <span *ngIf="i<4">
+                      <label class="category-label" >
+                        <a class="dropdown-item">
+                          <p class="category-drop">
+                            <input type="checkbox"
+                                   value=i
+                                   (change)="updateCategory(i)"
+                                   class="form-check-input checkboxes"
+                            /> {{'category.' + i | translate}}
+                          </p>
+                        </a>
+                      </label>
+                    </span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="dropdown">
+              <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                {{'search.searchBy.flavour' | translate}}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDaytime">
+                <li class="list-dropdown">
+                  <span *ngFor="let category of totalCategories; let i = index ">
+                    <span *ngIf="(i+4) < 9">
+                      <label class="category-label" >
+                        <a class="dropdown-item">
+                          <p class="category-drop">
+                            <input type="checkbox"
+                                   value=i
+                                   (change)="updateCategory(i+4)"
+                                   class="form-check-input checkboxes"
+                            /> {{'category.' + (i+4) | translate}}
+                          </p>
+                        </a>
+                      </label>
+                    </span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="dropdown">
+              <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                {{'search.searchBy.cat' | translate}}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDaytime">
+                <li class="list-dropdown">
+                  <span *ngFor="let category of totalCategories; let i = index">
+                    <span *ngIf="(i+9)<20">
+                      <label class="category-label" >
+                        <a class="dropdown-item">
+                          <p class="category-drop">
+                            <input type="checkbox"
+                                   value=i
+                                   (change)="updateCategory(i+9)"
+                                   class="form-check-input checkboxes"
+                            /> {{'category.' + (i+9) | translate}}
+                          </p>
+                        </a>
+                      </label>
+                    </span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+
+            <div class="dropdown">
+              <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"  >
+                {{'search.searchBy.difficulty' | translate}}
+              </button>
+              <ul class="dropdown-menu" >
+                <li class="list-dropdown">
+                  <div>
+                    <label class="dropdown-item" >
+                      <input class="form-check-input" type="radio" (click)="changeDifficulty(0)" name="difficultyRadioButton" id="difficultyNone" checked >
+                      {{'newRec.difficulty.none' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item" >
+                      <input class="form-check-input" type="radio" (click)="changeDifficulty(1)" name="difficultyRadioButton"  >
+                      {{'newRec.difficulty.easy' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item">
+                      <input class="form-check-input" type="radio" (click)="changeDifficulty(2)" name="difficultyRadioButton">
+                      {{'newRec.difficulty.medium' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item">
+                      <input class="form-check-input" type="radio" (click)="changeDifficulty(3)" name="difficultyRadioButton" >
+                      {{'newRec.difficulty.hard' | translate}}
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+
+            <div class="dropdown">
+              <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"  >
+                <fa-icon [icon]="faSort" aria-hidden="true" style="color: #93c021"></fa-icon>
+                {{'search.orderBy' | translate}}
+              </button>
+              <ul class="dropdown-menu"  >
+                <li class="list-dropdown">
+                  <div>
+                    <label class="dropdown-item">
+                      <input class="form-check-input" type="radio" (click)="changeRecipeOrder('TITLE_ASC')" name="flexRadioDefault">
+                      {{'search.orderBy.title.asc' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item" >
+                      <input class="form-check-input" type="radio" (click)="changeRecipeOrder('TITLE_DESC')" name="flexRadioDefault" >
+                      {{'search.orderBy.title.desc' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item" >
+                      <input class="form-check-input" type="radio" (click)="changeRecipeOrder('DATE_DESC')" name="flexRadioDefault" id="orderDateDesc" checked>
+                      {{'search.orderBy.date.desc' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item" >
+                      <input class="form-check-input" type="radio" (click)="changeRecipeOrder('DATE_ASC')" name="flexRadioDefault" >
+                      {{'search.orderBy.date.asc' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item" >
+                      <input class="form-check-input" type="radio" (click)="changeRecipeOrder('LIKES_ASC')" name="flexRadioDefault" >
+                      {{'search.orderBy.likes.asc' | translate}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="dropdown-item" >
+                      <input class="form-check-input" type="radio" (click)="changeRecipeOrder('LIKES_DESC')" name="flexRadioDefault" >
+                      {{'search.orderBy.likes.desc' | translate}}
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="form-check highlight-label">
+              <label class="form-check-label">{{'search.highlighted' | translate}}
+                <input type="checkbox" class="form-check-input" [checked]="this.rpq.highlighted" (click)="changeHighlightedRecipes()"/>
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div *ngIf="activeTab==='users'">
+          <div class="row">
+            <div class="col-12 d-flex p-2 align-items-center justify-content-center categories-class" style="margin-top: 0">
+              <div class="col-6 d-flex justify-content-end">
+                <div class="dropdown">
+                  <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                          data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"  >
+                    {{'search.filteredBy' | translate}}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                    <li class="list-dropdown">
+                      <label class="orderBy-label" for="highlighted">
+                        <a class="dropdown-item" >
+                          <p class="category-drop">
+                            <input type="checkbox"
+                                   (click)="setHighlightedFilter()"
+                                   class="form-check-input filter-btn checkboxes"
+                                   id="highlighted"/>
+                            {{'search.filteredBy.highlighted' | translate}}
+                          </p>
+                        </a>
+                      </label>
+                      <label class="orderBy-label" for="admins">
+                        <a class="dropdown-item">
+                          <p class="category-drop">
+                            <input type="checkbox" id="admins"
+                                   (click)="setAdminFilter()"
+                                   class="form-check-input filter-btn checkboxes"
+                            />
+                            {{'search.filteredBy.admin' | translate}}
+                          </p>
+                        </a>
+                      </label>
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+              <div class="col-6 d-flex justify-content-start">
+                <div class="dropdown">
+                  <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                          data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"  >
+                    <fa-icon [icon]="faSort" aria-hidden="true" style="color: #93c021"></fa-icon>
+                    {{'search.orderBy' | translate}}
+                  </button>
+                  <ul class="dropdown-menu"  >
+                    <li class="list-dropdown">
+                      <div class="dropdown-item">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" (click)="changeUserOrder('NAME_ASC')" name="flexRadioDefault2" checked >
+                          {{'search.orderBy.title.asc' | translate}}
+                        </label>
+                      </div>
+                      <div class="dropdown-item">
+                        <label class="form-check-label" >
+                          <input class="form-check-input" type="radio" (click)="changeUserOrder('NAME_DESC')" name="flexRadioDefault2" >
+                          {{'search.orderBy.title.desc' | translate}}
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
+        <div id="recipes-result">
+          <div class="row align-items-center justify-content-center container-fluid search-container" style="padding-left: 0;padding-right: 0;">
+            <div class="col-12 p-0">
+              <div class="row align-items-center justify-content-center w-100 m-0">
+                <h2 style="padding: 1px 25px 0 12px;">
+                  {{'search.result.for' | translate}}
+                  <small style="font-size:25px;">{{rpq.query}}</small>
+                </h2>
+
+                <div class="col-12">
+                  <h5 *ngIf="this.rpq.highlighted || this.categoriesArray.length > 0">{{'search.filter' | translate }}
+                    <button *ngIf="this.rpq.highlighted" type="button" class="btn-outline filters-btn" style="color:#cda434; background-color:dimgrey; cursor: auto">
+                      <fa-icon [icon]="faAward" aria-hidden="true" ></fa-icon>
+                      {{'search.filtered.highlighted' | translate}}</button>
+                    <span *ngFor="let cat of this.categoriesArray">
+                      <button type="button" class="btn-outline categories-btn" style="cursor: auto">
+                        {{'category.' + cat | translate}}
+                      </button>
+                    </span>
+                  </h5>
+                </div>
+
+                <div class="col-12">
+                  <h5 *ngIf="difficulty > 0" id="search" style="padding-bottom: 0;padding-right: 25px;">
+                    {{'recPage.difficulty' | translate}}
+                    <p *ngIf="difficulty == 1" class="p-0" style="color:green; display: inline">
+                      <fa-icon [icon]="faGauge" aria-hidden="true" style="margin-right: 5px"></fa-icon>
+                      {{'newRec.difficulty.easy' | translate}}
+                    </p>
+
+                    <p *ngIf="difficulty == 2" class="p-0" style="color:orange; display: inline">
+                      <fa-icon [icon]="faGauge" aria-hidden="true" style="margin-right: 5px"></fa-icon>
+                      {{'newRec.difficulty.medium' | translate}}
+                    </p>
+
+                    <p *ngIf="difficulty == 3" class="p-0" style="color:red; display: inline">
+                      <fa-icon [icon]="faGauge" aria-hidden="true" style="margin-right: 5px"></fa-icon>
+                      {{'newRec.difficulty.hard' | translate}}
+                    </p>
+
+                  </h5>
+                </div>
+
+                <div class="col-12">
+                  <h5>{{'search.order.' + this.recipesOrder | translate }}</h5>
+                </div>
+                <p *ngIf="rpr.results.length == 0 ; else rprNotEmpty">{{'search.empty' | translate}}</p>
+              </div>
+              <ng-template #rprNotEmpty>
+                <div class="container-fluid p-0" style="margin-bottom: 20px;">
+                  <div class="row align-items-center justify-content-center w-100 m-0">
+                    <div class="col-12 mt-3 col-md-6 col-lg-6 col-xl-4 col-xxl-3 mb-4 mb-md-0 align-items-center justify-content-center" *ngFor="let recipe of rpr.results">
+                      <app-recipe-card [recipe] = recipe ></app-recipe-card>
+                    </div>
+                  </div>
+                </div>
+
+                <app-pagination *ngIf="rpr.pages > 1" (changePage)="onRecipesChangePage($event)"
+                                [current]="rpq.page" [pages]="rpr.pages"></app-pagination>
+
+
+              </ng-template>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+        <div class="row align-items-center justify-content-center container-fluid search-container" style="padding-left: 0;padding-right: 0;">
+          <div class="col-12 p-0">
+            <div class="row align-items-center justify-content-center w-100 m-0">
+              <h2 style="padding: 1px 25px 0 12px;">
+                {{'search.result.for' | translate}}<small style="font-size:25px;"> {{upq.query}}</small></h2>
+
+              <div class="col-12">
+                <h5 *ngIf="admins || highlighted">{{'search.filter' | translate }}
+                  <button *ngIf="admins" type="button" class="btn-outline filters-btn" style="color:#cda434; background-color:dimgrey;">
+                    <fa-icon [icon]="faShield" aria-hidden="true" ></fa-icon>
+                    {{'search.filteredBy.admin' | translate}}
+                  </button>
+                  <button *ngIf="highlighted" type="button" class="btn-outline filters-btn" style="color:#cda434; background-color:dimgrey;">
+                    <fa-icon [icon]="faAward" aria-hidden="true" ></fa-icon>
+                    {{'search.filtered.highlighted' | translate}}</button>
+                </h5>
+              </div>
+
+              <div class="col-12">
+                <h5>{{'search.order.' + this.userOrder | translate }}</h5>
+              </div>
+
+              <p *ngIf="upr.results.length == 0 ; else uprNotEmpty">{{'search.empty.user' | translate}}</p>
+            </div>
+            <ng-template #uprNotEmpty>
+              <div class="container-fluid p-0" style="margin-bottom: 20px;">
+                <div class="row align-items-center justify-content-center w-100 m-0">
+                  <div class="col-12 mt-3 col-md-6 col-lg-6 col-xl-4 col-xxl-3 mb-4 mb-md-0 align-items-center justify-content-center" *ngFor="let user of upr.results">
+                    <app-user-card [user] = user></app-user-card>
+                  </div>
+                </div>
+              </div>
+
+              <app-pagination *ngIf="upr.pages > 1" (changePage)="onUsersChangePage($event)"
+                              [current]="upq.page" [pages]="upr.pages"></app-pagination>
+            </ng-template>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

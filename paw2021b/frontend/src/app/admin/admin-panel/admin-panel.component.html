@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="content-lg p-5 content-container">
+    <div class="row w-100 justify-content-center align-items-center tabs-row">
+      <div class="col-12 tabs" style="margin-bottom: 20px;">
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item" role="presentation" >
+            <button class="nav-link btn-list active" id="manage-users-tab" data-bs-toggle="pill" data-bs-target="#manageUsers" type="button" role="tab" aria-controls="manageUsers" aria-selected="false" (click)="changeTab('manageUsers')">
+              {{'admin.panel.manage' | translate}}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link btn-list" id="reports-tab" data-bs-toggle="pill" data-bs-target="#reports" type="button" role="tab" aria-controls="reports" aria-selected="true" (click)="changeTab('reports')">
+              {{'admin.panel.reports' | translate}}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="activeTab==='manageUsers'" class="row w-100 m-0 panel-container">
+        <div class="row panel-box">
+          <div class="col-10 col-lg-8 col-md-8 col-sm-6 main-title titles panel-display">
+            <h1>
+              {{'admin.panel.title' | translate}}
+            </h1>
+          </div>
+        </div>
+        <div class="row panel-box">
+          <div class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+            <h3>
+              {{'admin.panel.banned' | translate}}
+            </h3>
+          </div>
+        </div>
+        <app-panel-banned-pagination></app-panel-banned-pagination>
+        <br>
+        <br>
+        <div class="row panel-box">
+          <div class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+            <h3>
+              {{'admin.panel.admin' | translate}}
+            </h3>
+          </div>
+        </div>
+        <app-panel-admin-pagination></app-panel-admin-pagination>
+      </div>
+
+      <div *ngIf="activeTab==='reports'" class="row w-100 m-0 panel-container">
+        <div class="row panel-box">
+          <div class="col-10 col-lg-8 col-md-8 col-sm-6 main-title titles panel-display">
+            <h1>
+              {{'admin.panel.reports' | translate}}
+            </h1>
+          </div>
+        </div>
+        <app-reports></app-reports>
+      </div>
+
+    </div>
+  </div>
+</div>

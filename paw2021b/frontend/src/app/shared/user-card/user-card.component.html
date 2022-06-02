@@ -1,0 +1,32 @@
+<div class="userCard">
+  <a [routerLink]="['/profile',user.id]">
+    <div class="imageContainer">
+          <span *ngIf="user.avatarUrl.length == 0 ; else userImage">
+            <img class="cardImage" src="assets/images/profilePic.png" alt="Avatar" style="width:100%">
+          </span>
+      <ng-template #userImage>
+        <img class="cardImage" src="{{user.avatarUrl}}" alt="Avatar" style="width:100%">
+      </ng-template>
+      <div style="padding: 1.25rem">
+        <div class="row">
+          <h4 class="card-title m-0"style="margin-top: 0; margin-bottom: 0; height:30px">{{user.username}}</h4>
+          <p style="margin-bottom: 0px;color:#93c021;padding-bottom: 6px;"></p>
+        </div>
+        <div class="col-12 my-1">
+          <p *ngIf="user.recipesCount == 0" class="card-text m-0" style="margin-top: 0"><fa-icon [icon]="faCutlery"></fa-icon>
+            {{'otherProfile.emptyRec' | translate}}</p>
+          <p *ngIf="user.recipesCount == 1" class="card-text m-0" style="margin-top: 0"><fa-icon [icon]="faCutlery"></fa-icon>
+            1 {{'profile.1recipeAmount' | translate}}</p>
+          <p *ngIf="user.recipesCount > 1" class="card-text m-0" style="margin-top: 0"><fa-icon [icon]="faCutlery"></fa-icon>
+            {{user.recipesCount}} {{'profile.recipeAmount' | translate}}</p>
+          <p *ngIf="user.highlightedCount == 1" class="card-text m-0" style="margin-top: 0"><fa-icon [icon]="faAward"></fa-icon>
+            1 {{'userCard.1highlighted' | translate}} </p>
+          <p *ngIf="user.highlightedCount > 1" class="card-text m-0" style="margin-top: 0"><fa-icon [icon]="faAward"></fa-icon>
+            {{user.highlightedCount}} {{'userCard.highlighted' | translate}} </p>
+          <p *ngIf="user.highlightedCount == 0" class="card-text m-0" style="margin-top: 0"><fa-icon [icon]="faAward"></fa-icon>
+            {{'userCard.noHighlighted' | translate}} </p>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

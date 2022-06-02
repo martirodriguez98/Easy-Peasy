@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[167],{167:(d,n,o)=>{o.r(n),o.d(n,{UserProfileModule:()=>M});var l=o(6019),s=o(1382),E=o(7897),a=o(8329),u=o(9133),r=o(2383);let M=(()=>{class _{}return _.\u0275fac=function(e){return new(e||_)},_.\u0275mod=r.oAB({type:_}),_.\u0275inj=r.cJS({imports:[[l.ez,s.m,E.g,a.uH,u.UX]]}),_})()}}]);

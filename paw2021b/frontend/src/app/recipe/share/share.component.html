@@ -1,0 +1,73 @@
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" (hide.bs.modal)="onClose()"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="shareModalLabel">{{'recPage.shareByEmail' | translate}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="shareForm" id="shareSubmit" (ngSubmit)="onSubmitShare()">
+        <div class="modal-body">
+          <div class="form-group">
+            <div>
+              <label class="col-form-label"
+                     style="float: left">{{'recPage.share.name' | translate}}</label>
+              <input formControlName="name" type="text" class="form-control">
+              <span *ngIf="!shareForm.get('name').valid && shareForm.get('name').touched">
+                      <span *ngIf="shareForm.get('name').errors['required']" class="error-msg"
+                            style="float: left;">
+                        {{'Size.registerForm.email' | translate: {min: minNameLength, max: maxNameLength} }}
+                      </span>
+                        <span *ngIf="shareForm.get('name').errors['minlength']" class="error-msg"
+                              style="float: left;">
+                      {{'Size.registerForm.email.min' | translate: {min: minNameLength} }}
+                      </span>
+                      <span *ngIf="shareForm.get('name').errors['maxlength']" class="error-msg"
+                            style="float: left;">
+                      {{'Size.registerForm.email.max' | translate: {max: maxNameLength} }}
+                      </span>
+                    </span>
+            </div>
+            <div style="padding-top: 25px;padding-bottom: 25px;">
+              <label class="col-form-label"
+                     style="float: left">{{'recPage.share.sendTo' | translate}}</label>
+              <input formControlName="email" type="email" class="form-control">
+              <span *ngIf="!shareForm.get('email').valid && shareForm.get('email').touched">
+                      <span *ngIf="shareForm.get('email').errors['required']" class="error-msg"
+                            style="float: left">
+                        {{'Size.registerForm.email' | translate: {min: minEmailLength, max: maxEmailLength} }}
+                      </span>
+                        <span *ngIf="shareForm.get('email').errors['minlength']" class="error-msg"
+                              style="float: left">
+                      {{'Size.registerForm.email.min' | translate: {min: minEmailLength} }}
+                      </span>
+                      <span *ngIf="shareForm.get('email').errors['maxlength']" class="error-msg"
+                            style="float: left">
+                      {{'Size.registerForm.email.max' | translate: {max: maxEmailLength} }}
+                      </span>
+                      <span *ngIf="shareForm.get('email').errors['pattern']" class="error-msg"
+                            style="float: left">
+                      {{'Email.registerForm.email' | translate }}
+                      </span>
+                    </span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <div *ngIf="onSuccess" class="col-12 mt-2 d-flex align-items-center justify-content-center">
+          <p>
+            {{'recPage.share.onSuccess' | translate }}
+          </p>
+        </div>
+        <button class="btn btn-outline-dark btn-share" [disabled]="disable" form="shareSubmit">
+                <span *ngIf="!disable">
+                  {{ 'recPage.share.sendBtn' | translate }}
+                </span>
+          <span class="spinner-border spinner-border-sm" [hidden]="!disable"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

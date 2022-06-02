@@ -1,0 +1,460 @@
+<div class="container-fluid">
+  <div class="content-lg content-container p-5">
+    <div class="row m-0 container">
+      <div class="create-recipe-text col-12">
+        <h1 id="create-recipe-title">
+          {{ 'newRec.title' | translate }}
+        </h1>
+      </div>
+      <form id="recipeForm" style="margin-bottom: 0px" [formGroup]="recipeForm" (ngSubmit)="onClickSubmit()">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-8 inp">
+            <input id="titleValidation" class="form-control desc divs" type="text"
+                   formControlName="title" placeholder="{{ 'newRec.titlePlaceholder' | translate}}"/>
+            <span *ngIf="!recipeForm.get('title').valid && recipeForm.get('title').touched">
+                    <span *ngIf="recipeForm.get('title').errors['required']">
+                      <p class="formError">{{'NotEmpty.newRecipeForm.recipe_title' | translate }}</p>
+                    </span>
+                    <span *ngIf="recipeForm.get('title').errors['minlength']" class="formError">
+                      <p class="formError" style="font-size:.940em">{{'Size.newRecipeForm.recipe_title' | translate: {
+                        min: minRecipeTitleLength,
+                        max: maxRecipeTitleLength
+                      } }}</p>
+                    </span>
+                    <span *ngIf="recipeForm.get('title').errors['maxlength']" class="formError">
+                      <p class="formError" style="font-size:.940em">{{'Size.recipeForm.title' | translate: {
+                        min: minRecipeTitleLength,
+                        max: maxRecipeTitleLength
+                      } }}</p>
+                    </span>
+            </span>
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-8 inp">
+            <textarea type="text" id="descValidation" class="form-control desc divs"
+                      type="text" formControlName="description"
+                      placeholder="{{'newRec.descPlaceholder' | translate}}"></textarea>
+            <span *ngIf="!recipeForm.get('description').valid && recipeForm.get('description').touched">
+                    <span *ngIf="recipeForm.get('description').errors['required']">
+                      <p class="formError">{{'NotEmpty.newRecipeForm.recipe_desc' | translate }}</p>
+                    </span>
+                    <span *ngIf="recipeForm.get('description').errors['minlength']" class="formError">
+                      <p class="formError" style="font-size:.940em">{{'Size.newRecipeForm.recipe_title' | translate: {
+                        min: minRecipeDescriptionLength,
+                        max: maxRecipeDescriptionLength
+                      } }}</p>
+                    </span>
+                    <span *ngIf="recipeForm.get('description').errors['maxlength']" class="formError">
+                      <p class="formError" style="font-size:.940em">{{'Size.newRecipeForm.recipe_title' | translate: {
+                        min: minRecipeDescriptionLength,
+                        max: maxRecipeDescriptionLength
+                      } }}</p>
+                    </span>
+            </span>
+          </div>
+        </div>
+        <!--                    <%--            Ingredients--%>-->
+        <div class="row justify-content-center align-items-center">
+          <div id="steps" class="col-12">
+            <table id="empTable" class="table">
+              <tbody>
+              <tr>
+                <th class="table-header">
+                  <div class="row">
+                    <div class="col-6">
+                      <h6>{{ 'recPage.ingredient' | translate}}</h6>
+                    </div>
+                    <div class="col-6">
+                      <h6>{{ 'recPage.quant' | translate}}</h6>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              <ng-container formArrayName="ingredients">
+                <tr *ngFor="let ingredient of getIngredients().controls;index as i">
+                  <div [formGroupName]="i">
+                    <td>
+                      <input class="table-cells" type="text" formControlName="name"/>
+                    </td>
+                    <td>
+                      <input class="table-cells" type="text" formControlName="quantity"/>
+                    </td>
+                  </div>
+                  <td>
+                    <input class="btn btn-delete btn-outline-dark" type="button" (click)="removeIngredient(i)"
+                           value="{{ 'recPage.delBtn' | translate}}"/>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="col-12">
+          <input type="button" id="btAdd" class="btn btn-outline-dark newIng-btn inp"
+                 value="{{'newRec.newIngr' | translate}}"
+                 style="justify-content: center"
+                 (click)="addIngredient()"/>
+        </p>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-8 inp">
+            <input id="timeValidation" class="form-control desc divs"
+                   type="number" min="1" formControlName="time"
+                   placeholder="{{'newRec.timePlaceholder' | translate}}"/>
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-8 inp">
+                    <textarea id="stepsValidation" class="form-control desc divs"
+                              type="text" formControlName="steps"
+                              placeholder="{{'newRec.stepsPlaceholder' | translate}}"></textarea>
+            <span *ngIf="!recipeForm.get('steps').valid && recipeForm.get('steps').touched">
+                    <span *ngIf="recipeForm.get('steps').errors['required']">
+                      <p class="formError">{{'NotEmpty.newRecipeForm.recipe_steps' | translate }}</p>
+                    </span>
+                    <span *ngIf="recipeForm.get('steps').errors['minlength']" class="formError">
+                      <p class="formError" style="font-size:.940em">{{'Size.newRecipeForm.recipe_title' | translate: {
+                        min: minRecipeDescriptionLength,
+                        max: maxRecipeDescriptionLength
+                      } }}</p>
+                    </span>
+                    <span *ngIf="recipeForm.get('steps').errors['maxlength']" class="formError">
+                      <p class="formError" style="font-size:.940em">{{'Size.newRecipeForm.recipe_title' | translate: {
+                        min: minRecipeDescriptionLength,
+                        max: maxRecipeDescriptionLength
+                      } }}</p>
+                    </span>
+            </span>
+          </div>
+        </div>
+        <!--                <%&#45;&#45; Images&#45;&#45;%>-->
+        <div class="form-group d-flex justify-content-center col-12">
+          <p>
+            <button class="newIng-btn btn btn-outline-dark" type="button" id="addFileButton"
+                    (click)="inputFile.click();"
+                    [disabled]="imagesCounter >= maxImages"
+                    [ngClass]="imagesCounter < maxImages ? 'buttonEnabled' : 'buttonDisabled'">
+              {{'newRec.uploadImgBtn' | translate}}
+            </button>
+          </p>
+          <input type="file" id="inputFiles" name="images" accept=".png,.jpg,.jpeg" (change)="onFileChanged($event)"
+                 hidden #inputFile/>
+        </div>
+        <p class="img-upload">
+          <span id="imagesQuantity">{{imagesCounter}}</span>
+          <span> / {{maxImages}}</span>
+        </p>
+        <p class="img-upload">
+          {{'newRec.uploadImage' | translate}}
+        </p>
+        <div class="container-fluid p-0" id="imagesHolder">
+          <div class="row">
+            <div class="col-3">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-delete btn-outline-dark"
+                *ngFor="let image of recipeForm.get('images').value; let i = index"
+                (click)="deleteImage(i)">
+          {{image.name}}
+          <fa-icon [icon]="closeIcon"></fa-icon>
+        </button>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-3 difficulty">
+            <p class="select-dif">
+              {{'newRec.difficulty' | translate}}
+              <select class="divs desc" formControlName="difficulty" type="text" cssStyle="margin-bottom: 20px">
+                <option value="1" [ngValue]="1">
+                  {{'newRec.difficulty.easy' | translate}}
+                </option>
+                <option value="2" [ngValue]="2">
+                  {{'newRec.difficulty.medium' | translate}}
+                </option>
+                <option value="3" [ngValue]="3">
+                  {{'newRec.difficulty.hard' | translate}}
+                </option>
+              </select>
+            </p>
+          </div>
+        </div>
+        <div class="col-12 d-flex p-0 align-items-center justify-content-center categories-class">
+          <div class="dropup daytime-dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+              {{'newRec.choose.daytime' | translate}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li class="list-dropdown">
+                <label class="category-label" for="breakId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="breakId"
+                             (click)="categoryArray(0)"
+                             class="form-check-input"
+                             value="0"/>
+                      {{ 'category.daytime.breakfast' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="dinnerId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="dinnerId"
+                             (click)="categoryArray(1)"
+                             class="form-check-input"
+                             value="1"/>
+                      {{ 'category.daytime.dinner' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="lunchId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="lunchId"
+                             (click)="categoryArray(2)"
+                             class="form-check-input"
+                             value="2"/>
+                      {{ 'category.daytime.lunch' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="snackId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="snackId"
+                             (click)="categoryArray(3)"
+                             class="form-check-input"
+                             value="3"/>
+                      {{ 'category.daytime.snack' | translate}}
+                    </p>
+                  </a>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="dropup">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+              {{'newRec.choose.flavour' | translate}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li class="list-dropdown">
+                <label class="category-label" for="bitterId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="bitterId"
+                             (click)="categoryArray(4)"
+                             class="form-check-input"
+                             value="4"/>
+                      {{'category.flavour.bitter' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="bittersweetId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="bittersweetId"
+                             (click)="categoryArray(5)"
+                             class="form-check-input"
+                             value="5"/>
+                      {{'category.flavour.bittersweet' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="savouryId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="savouryId"
+                             (click)="categoryArray(6)"
+                             class="form-check-input"
+                             value="6"/>
+                      {{'category.flavour.savoury' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="spicyId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="spicyId"
+                             (click)="categoryArray(7)"
+                             class="form-check-input"
+                             value="7"/>
+                      {{'category.flavour.spicy' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="sweetId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="sweetId"
+                             (click)="categoryArray(8)"
+                             class="form-check-input"
+                             value="8"/>
+                      {{'category.flavour.sweet' | translate}}
+                    </p>
+                  </a>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="dropup category-dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+              {{'newRec.choose.category' | translate}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+              <li class="list-dropdown">
+                <label class="category-label" for="bakeryId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="bakeryId"
+                             (click)="categoryArray(9)"
+                             class="form-check-input"
+                             value="9"/>
+                      {{'category.bakery' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="fishId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="fishId"
+                             (click)="categoryArray(10)"
+                             class="form-check-input"
+                             value="10"/>
+                      {{'category.fish' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="glutenId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="glutenId"
+                             (click)="categoryArray(11)"
+                             class="form-check-input"
+                             value="11"/>
+                      {{'category.glutenFree' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="healthyId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="healthyId"
+                             (click)="categoryArray(12)"
+                             class="form-check-input"
+                             value="12"/>
+                      {{'category.healthy' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="kosherId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="kosherId"
+                             (click)="categoryArray(13)"
+                             class="form-check-input"
+                             value="13"/>
+                      {{'category.kosher' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="meatId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="meatId"
+                             (click)="categoryArray(14)"
+                             class="form-check-input"
+                             value="14"/>
+                      {{'category.meat' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="pastaId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="pastaId"
+                             (click)="categoryArray(15)"
+                             class="form-check-input"
+                             value="15"/>
+                      {{'category.pasta' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="pastriesId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="pastriesId"
+                             (click)="categoryArray(16)"
+                             class="form-check-input"
+                             value="16"/>
+                      {{'category.pastries' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="saladsId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="saladsId"
+                             (click)="categoryArray(17)"
+                             class="form-check-input"
+                             value="17"/>
+                      {{'category.salads' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="sideId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="sideId"
+                             (click)="categoryArray(18)"
+                             class="form-check-input"
+                             value="18"/>
+                      {{'category.sideDishes' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="veganId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="veganId"
+                             (click)="categoryArray(19)"
+                             class="form-check-input"
+                             value="19"/>
+                      {{'category.vegan' | translate}}
+                    </p>
+                  </a>
+                </label>
+                <label class="category-label" for="vegId">
+                  <a class="dropdown-item">
+                    <p class="category-drop">
+                      <input type="checkbox" id="vegId"
+                             (click)="categoryArray(20)"
+                             class="form-check-input"
+                             value="20"/>
+                      {{'search.category.vegetarian' | translate}}
+                    </p>
+                  </a>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="button-create btn btn-dark create-btn"
+                  type="submit" style="margin-bottom: 20px;min-width: 15em;"
+                  [disabled]="!recipeForm.valid || disabled">
+            <span *ngIf="!disabled">
+                            {{'newRec.create' | translate}}
+            </span>
+            <span class="spinner-border spinner-border-sm" [hidden]="!disabled"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

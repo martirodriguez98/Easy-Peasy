@@ -1,0 +1,54 @@
+<p><a type="button" class="forgotText" data-bs-toggle="modal" data-bs-target="#forgotPassModal">
+  {{'login.forgot' | translate}}
+</a></p>
+<form [formGroup]="resqResetPassForm" id="resqResetPassForm" (ngSubmit)="onSubmitReqResetPass()">
+  <div class="modal fade" id="forgotPassModal" tabindex="-1" aria-labelledby="forgotPassModalLabel" (hide.bs.modal)="onClose()"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="forgotPassModalLabel">{{ 'reset.resetPassword' | translate }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-form-label"
+                   style="float: left">{{ 'register.form.email' | translate }}</label>
+            <input formControlName="email" type="email" class="form-control" id="recipient-name">
+            <span *ngIf="!resqResetPassForm.get('email').valid && resqResetPassForm.get('email').touched">
+                      <span *ngIf="resqResetPassForm.get('email').errors['required']" class="error-msg"
+                            style="float: left">
+                        {{'Size.registerForm.email' | translate: {min: minEmailLength, max: maxEmailLength} }}
+                      </span>
+                        <span *ngIf="resqResetPassForm.get('email').errors['minlength']" class="error-msg"
+                              style="float: left">
+                      {{'Size.registerForm.email.min' | translate: {min: minEmailLength} }}
+                      </span>
+                      <span *ngIf="resqResetPassForm.get('email').errors['maxlength']" class="error-msg"
+                            style="float: left">
+                      {{'Size.registerForm.email.max' | translate: {max: maxEmailLength} }}
+                      </span>
+                      <span *ngIf="resqResetPassForm.get('email').errors['valid']" class="error-msg"
+                            style="float: left">
+                      {{'Email.registerForm.email' | translate }}
+                      </span>
+                    </span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div *ngIf="onSuccess" class="col-12 mt-2 d-flex align-items-center justify-content-center">
+            <p>
+              {{'reset.sent.msg' | translate }}
+            </p>
+          </div>
+          <button class="btn btn-outline-dark btn-send" form="resqResetPassForm" [disabled]="disable">
+                  <span *ngIf="!disable">
+                  {{ 'recPage.share.sendBtn' | translate }}
+                </span>
+            <span class="spinner-border spinner-border-sm" [hidden]="!disable"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

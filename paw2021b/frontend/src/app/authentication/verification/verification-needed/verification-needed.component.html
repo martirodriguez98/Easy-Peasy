@@ -1,0 +1,19 @@
+<div class="center">
+        <div class="row">
+            <div class="col-12 h-25 d-flex justify-content-center align-items-center">
+                <h1>{{'accountNotVerified' | translate}}</h1>
+            </div>
+            <div class="col-12 h-25 d-flex justify-content-center align-items-center">
+                <h3>{{'accountNotVerified.checkEmail' | translate}}</h3>
+            </div>
+            <div *ngIf="!loading" class="col-12 h-25 d-flex justify-content-center align-items-center">
+                    <button type="submit" (click)="resend()" class="btn btn-dark btn-resend">
+                        {{'accountNotVerified.resendBtn' | translate}}
+                    </button>
+            </div>
+            <div *ngIf="loading" class="col-12 h-25 d-flex justify-content-center align-items-center">
+              <span class="spinner-border spinner-border-sm"></span>
+            </div>
+
+        </div>
+    </div>

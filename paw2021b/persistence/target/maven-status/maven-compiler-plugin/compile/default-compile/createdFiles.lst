@@ -1,0 +1,10 @@
+ar/edu/itba/paw/persistence/RecipeDaoImpl.class
+ar/edu/itba/paw/persistence/SessionRefreshTokenDaoImpl.class
+ar/edu/itba/paw/persistence/RoleDaoImpl.class
+ar/edu/itba/paw/persistence/IngredientDaoImpl.class
+ar/edu/itba/paw/persistence/PasswordTokenDaoImpl.class
+ar/edu/itba/paw/persistence/ImageDaoImpl.class
+ar/edu/itba/paw/persistence/CommentDaoImpl.class
+ar/edu/itba/paw/persistence/VerificationTokenDaoImpl.class
+ar/edu/itba/paw/persistence/RecipeCategoryDaoImpl.class
+ar/edu/itba/paw/persistence/UserDaoImpl.class

@@ -1,0 +1,130 @@
+<div class="blog-comment" style="padding-left: 0px;padding-right: 0px;">
+  <div *ngIf="comment.user.avatarUrl.length == 0; else showPic">
+    <img alt="avatar" src="assets/images/profilePic.png" class="avatar">
+  </div>
+  <ng-template #showPic>
+    <img alt="avatar" src="{{ comment.user.avatarUrl }}" class="avatar">
+  </ng-template>
+  <div class="post-comments">
+    <p class="meta">
+      <a style="text-decoration: none !important;" class="comment-author" [routerLink]="['/profile',comment.user.id]" href="/profile/{{comment.user.id}}/>">{{ comment.user.username }}</a>
+      <fa-icon *ngIf="comment.user.roles.includes('ADMIN')" [icon] = "adminIcon"></fa-icon>
+      <i><small style="float: right">{{ comment.dateCreated }}</small></i>
+      <!--      DELETE COMMENT-->
+      <!-- Modal -->
+    <div *ngIf="user">
+      <button *ngIf="user.id == comment.user.id || isAdmin" style="float: right" type="button" class="btn btn-outline-dark delete-cmt-btn" data-bs-toggle="modal" [attr.data-bs-target]="'#modal' + comment.id">
+        <fa-icon [icon]="recipeComponent.deleteIcon" style="padding-right: 5px" aria-hidden="true"></fa-icon>
+      </button>
+      <button *ngIf="user.id != comment.user.id && !isAdmin && !isBanned" style="float: right" type="button" class="btn btn-outline-dark delete-cmt-btn report-cmt-btn" data-bs-toggle="modal" [attr.data-bs-target]="'#reportModal' + comment.id">
+        <fa-icon [icon]="reportIcon" style="padding-right: 5px" aria-hidden="true"></fa-icon>
+      </button>
+
+    </div>
+    <div class="modal fade" [id]="'modal' + comment.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ 'recPage.delete.comment.title' | translate }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ 'recPage.delete.comment' | translate }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary delete-btn" (click)="deleteComment(comment.id)" data-bs-dismiss="modal">
+              {{ 'recPage.delBtn' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade"
+         data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabelDeleteComment"
+         aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"
+                id="staticBackdropLabelDeleteComment">
+              {{ 'recPage.delete.comment.title' | translate }}
+            </h5>
+            <button type="button" class="btn btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4>
+              {{ 'recPage.delete.comment' | translate }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--      DELETE COMMENT END    -->
+    <!--    REPORT COMMENT-->
+    <div class="modal fade" [id]="'reportModal' + comment.id"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="staticBackdropReport"
+         aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"
+                id="staticBackdropReport">
+              {{'profile.report.title' | translate}}
+            </h4>
+            <button type="button" class="btn btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div *ngIf="comment.user.roles.includes('BANNED')">
+            <div class="modal-body">
+              <h5>
+                {{'profile.report.banned' | translate}}
+              </h5>
+            </div>
+          </div>
+          <div *ngIf="!comment.user.roles.includes('BANNED')">
+          <form [formGroup]="reportForm" id="reportForm" (ngSubmit)="reportUser()">
+            <div class="modal-body">
+              <h5>
+                {{'profile.report.desc' | translate}}
+              </h5>
+              <div class="form-group">
+                <textarea formControlName="reportDesc" class="form-control report-btn report-desc"></textarea>
+              </div>
+              <div class="col-12 px-0 d-flex justify-content-start align-items-center">
+                              <span *ngIf="!reportForm.get('reportDesc').valid && reportForm.get('reportDesc').touched">
+                                 <span *ngIf="reportForm.get('reportDesc').errors['maxlength']" class="error-msg">
+                                  {{'profile.report.desc.maxSize' | translate: {max: maxRepDesc} }}
+                                </span>
+                                <span *ngIf="reportForm.get('reportDesc').errors['required']" class="error-msg">
+                                  {{'profile.report.desc.required' | translate}}
+                                </span>
+                              </span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button [disabled]="!reportForm.valid" class="btn btn-outline-dark report-btn" data-bs-dismiss="modal" >
+                <span *ngIf="!disableRep"> {{'profile.report.btn' | translate}} </span>
+                <span class="spinner-border spinner-border-sm" [hidden]="!disableRep"></span>
+              </button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-11" style="display: inline-block">
+        <p>{{ comment.commentDesc }}</p>
+      </div>
+    </div>
+  </div>
+</div>

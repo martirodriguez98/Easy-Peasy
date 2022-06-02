@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+    <title th:remove="all">Template for HTML email (simple)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-apple-disable-message-reformatting">
+</head>
+<body>
+<div style="display: block;justify-content: center;margin: 0 auto;background-color:#ebe5d9;height: 60%;width: 300px;border-radius: 5px;">
+    <div class="align-items-center  position-relative justify-content-center"
+         style="padding-bottom: 20px;padding-top: 1px;">
+        <div style="text-align: center">
+            <h1>Easy Peasy</h1>
+        </div>
+        <div style="text-align: center">
+            <h3 th:text="#{banned.title}"></h3>
+        </div>
+        <div style="text-align: center">
+            <h5 th:text="#{banned.desc}"></h5>
+        </div>
+        <div style="text-align: center">
+            <h5 th:text="#{banned.actions}"></h5>
+        </div>
+    </div>
+</div>
+</body>
+</html>

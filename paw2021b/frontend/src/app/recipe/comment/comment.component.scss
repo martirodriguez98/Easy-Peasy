@@ -1,0 +1,112 @@
+.blog-comment {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.blog-comment .post-comments {
+  border: 1px solid #ced4da;
+  margin-bottom: 20px;
+  margin-left: 85px;
+  margin-right: 0px;
+  padding: 10px 20px;
+  position: relative;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background: #fff;
+  color: black;
+  position: relative;
+}
+
+.blog-comment img {
+  opacity: 1;
+  filter: Alpha(opacity=100);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.blog-comment img.avatar {
+  position: relative;
+  float: left;
+  margin-left: 0;
+  margin-top: 0;
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  border: solid #DCDCDC 2px;
+  right: auto;
+  left: 10px;
+}
+
+.comment-author {
+  color: #93c021 !important;
+}
+
+.comment-author:hover {
+  color: black !important;
+}
+
+.blog-comment .meta {
+  font-size: 13px;
+  color: #aaaaaa;
+  padding-bottom: 8px;
+  margin-bottom: 10px !important;
+  border-bottom: 1px solid #eee;
+}
+
+.comments {
+  background-color: whitesmoke !important;
+  padding: 20px;
+}
+
+.delete-cmt-btn {
+  padding-top: 0px;
+  line-height: 1;
+  font-size: inherit;
+}
+
+.delete-cmt-btn:hover, .delete-cmt-btn:focus, .delete-cmt-btn:active {
+  color: red;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.delete-cmt-btn:focus, .delete-btn:active:focus {
+  box-shadow: 0 0 0 0.25rem transparent !important;
+}
+
+.delete-cmt-btn {
+  color: black;
+  border-color: transparent;
+  outline-color: black;
+}
+
+.delete-btn {
+  background-color: red;
+  border-color: red;
+  float: right;
+  color: white;
+  width: auto;
+  min-width: 8em;
+}
+
+.delete-btn:hover, .delete-btn:focus, .delete-btn:active {
+  color: red !important;
+  background-color: transparent !important;
+  border-color: red !important;
+}
+
+.delete-btn:focus, .delete-btn:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.4);
+}
+
+.btn-close:focus {
+    box-shadow: 0 0 0 0.25rem transparent;
+}
+
+.report-cmt-btn:hover, .report-cmt-btn:focus, .report-cmt-btn:active{
+  color: orange;
+}

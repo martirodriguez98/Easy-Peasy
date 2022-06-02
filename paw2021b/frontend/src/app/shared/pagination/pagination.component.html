@@ -1,0 +1,22 @@
+<div class="col-12 align-items-center justify-content-center mt-4 pb-4 ${recipes.getTotalPages()<=1 ? 'd-none':''} ">
+    <nav class="d-flex align-items-center justify-content-center">
+        <ul class="pagination mb-0" id="pagination" data-page="${recipes.page}">
+            <li [ngClass]="{'page-item':true, 'disabled':current === 0}">
+                <a class="page-link" id="prev"
+                   aria-label="Previous">
+                    <span aria-hidden="true" (click)="setPage(current-1)">&laquo;</span>
+                </a>
+            </li>
+                <li *ngFor="let page of pageSeq(pages)" [ngClass]="{'page-item':true, 'active':current === page}">
+                    <a class="page-link index" (click)="setPage(page)">
+                      {{page+1}}
+                    </a>
+                </li>
+            <li [ngClass]="{'page-item':true, 'disabled': current === pages-1}">
+                <a class="page-link" id="next" aria-label="Next" (click)="setPage(current+1)">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

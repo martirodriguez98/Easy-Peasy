@@ -1,0 +1,27 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+</head>
+<nav class="top_nav">
+  <div class="shadow-sm mb-5">
+    <ul style="padding-left:0px">
+      <li *ngIf="!user" class="nav-item"><a class="ba btn btn-sm btn-outline-dark b2 nav-btn-reg" routerLink="/register" >
+        {{'navBar.register' | translate}}</a>
+      </li>
+      <li><a *ngIf="!user" class="ba btn btn-sm btn-dark b2 nav-btn-log" type="button" routerLink="/login" >{{'navBar.logIn' | translate}}</a></li>
+
+      <li><a *ngIf="user" id="profile_btn" class="fw-bolder" routerLink="/profile" >{{'navBar.profile' | translate}}</a></li>
+      <li *ngIf="user" class="nav-item"><a class="fw-bolder" [routerLink]="['/recipes','new']">{{'navBar.publish' | translate}}</a></li>
+      <li *ngIf="!user" class="nav-item"><a class="fw-bolder" routerLink="/login">{{'navBar.publish' | translate}}</a></li>
+
+      <li class="nav-item"><a id="search_navbar_btn" class="fw-bolder" routerLink="/search">{{'navBar.search' | translate}}</a></li>
+      <li class="nav-item"><a class="fw-bolder" routerLink="/" >{{'navBar.home' | translate}}</a></li>
+      <li class="logo-container">
+        <a routerLink="/" style="padding:0px">
+          <img src='assets/images/b_logo.png' alt="Logo" height="44px" width="150px" class="logo">
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

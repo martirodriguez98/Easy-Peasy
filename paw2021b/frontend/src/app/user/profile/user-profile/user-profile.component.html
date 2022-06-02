@@ -1,0 +1,271 @@
+<div class="container-fluid p-0 bg" *ngIf="loaded">
+  <div class="container">
+    <div class="content-lg p-5 content-container">
+      <div class="row w-100 m-0 panel-container">
+        <div class="row profile-margin">
+          <div class="profile-container">
+            <div class="align-items-center  position-relative justify-content-center">
+              <div class="profilePictureContainer">
+                <div id="profile-image">
+                  <div *ngIf="profileUser.avatarUrl.length == 0; else userPic">
+                    <img alt="ProfileImage" src="assets/images/profilePic.png" class="profilePic">
+                  </div>
+                  <ng-template #userPic>
+                    <img alt="ProfileImage" src="{{ profileUser.avatarUrl }}" class="profilePic">
+                  </ng-template>
+                </div>
+              </div>
+              <h3 id="username">
+                {{ profileUser.username }}
+              </h3>
+              <div class="container-date" style="margin-top: 30px; margin-bottom: 30px;">
+                <p style="text-align: center">
+                  {{ 'profile.card.member' | translate : {date: profileUser.dateCreated} }}
+                </p>
+                <p *ngIf="profileUser.roles.includes('MANAGER')" style="text-align: center; color: #34633a">
+                  <fa-icon [icon]=managerIcon style="margin-right: 2px"
+                           aria-hidden="true"></fa-icon>
+                  {{'profile.manager' | translate}}</p>
+                <p *ngIf="profileUser.roles.includes('ADMIN')" style="text-align: center; color: #cda434">
+                  <fa-icon [icon]=adminIcon
+                           style="margin-right: 2px"
+                           aria-hidden="true"></fa-icon>
+                  Admin
+                </p>
+                <p *ngIf="profileUser.roles.includes('BANNED')" style="text-align: center; color: red">
+                  <fa-icon [icon]=bannedIcon style="margin-right: 2px" aria-hidden="true"></fa-icon>
+                  {{'profile.banned' | translate}}</p>
+              </div>
+
+              <div class="col-12 d-flex p-0 align-items-center justify-content-center other-profile">
+                <div>
+
+                  <div *ngIf="user != null && user.roles.includes('ADMIN') && !profileUser.roles.includes('ADMIN') && !profileUser.roles.includes('BANNED')" style="display: flex; justify-content: center">
+                    <button type="button" class="btn btn-dark btn-admin"
+                            data-bs-toggle="modal"
+                            data-bs-target="#adminModal"><fa-icon
+                      [icon] = adminActionIcon
+                      style="color: #93c021"
+                      aria-hidden="true"></fa-icon>
+                      {{'profile.makeAdmin.btn' | translate}}
+                    </button>
+                    <div class="modal fade" id="adminModal"
+                         data-bs-backdrop="static"
+                         data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabelDelete"
+                         aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title"
+                                id="staticBackdropLabelAdmin">
+                              {{'profile.makeAdmin.title' | translate}}
+                            </h5>
+                            <button type="button" class="btn btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <h4>
+                              {{'profile.makeAdmin' | translate}}
+                            </h4>
+                          </div>
+                          <div class="modal-footer">
+                            <button  type="submit"
+                                     id="makeAdminBtn" name="adminBtn" data-bs-dismiss="modal"
+                                     (click)="tryAdmin(profileUser.id)"
+                                     class="btn btn-outline-dark accept-btn">
+                              {{'profile.makeAdmin.accept' | translate}}
+                            </button>
+                            <div class="spinner-border" id="loading"
+                                 role="status">
+                              <span class="sr-only"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div *ngIf="user != null && user.roles.includes('MANAGER') && profileUser.roles.includes('ADMIN')" style="display: flex; justify-content: center">
+                    <button type="button" class="btn btn-dark btn-admin"
+                            data-bs-toggle="modal"
+                            data-bs-target="#removeAdminModal"><fa-icon
+                      [icon] = adminActionIcon
+                      style="color: #93c021"
+                      aria-hidden="true"></fa-icon>
+                      {{'profile.removeAdmin.btn' | translate}}
+                    </button>
+                    <div class="modal fade" id="removeAdminModal"
+                         data-bs-backdrop="static"
+                         data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabelRemoveAdmin"
+                         aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title"
+                                id="staticBackdropLabelRemoveAdmin">
+                              {{'profile.removeAdmin.title' | translate}}</h5>
+                            <button type="button" class="btn btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <h4>{{'profile.removeAdmin' | translate}}</h4>
+                          </div>
+                          <div class="modal-footer">
+                            <button (click)="tryRemoveAdmin(profileUser.id)" type="submit"
+                                    data-bs-dismiss="modal"
+                                    id="removeAdminBtn" name="removeAdminBtn"
+                                    class="btn btn-outline-dark accept-btn">
+                              {{'profile.makeAdmin.accept' | translate}}
+                            </button>
+                            <div class="spinner-border" id="loadingRemoveAdmin"
+                                 role="status">
+                              <span class="sr-only"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div>
+
+                  <div *ngIf="user != null && user.roles.includes('ADMIN') && (!profileUser.roles.includes('ADMIN') || user.roles.includes('MANAGER')) && !profileUser.roles.includes('BANNED')" style="display: flex; justify-content: center">
+                    <button type="button" class="btn btn-outline-dark btn-ban"
+                            data-bs-toggle="modal"
+                            data-bs-target="#banModal"><fa-icon
+                      [icon] = adminActionIcon
+                      style="color: red"
+                      aria-hidden="true"></fa-icon>
+                      {{'profile.ban' | translate}}
+                    </button>
+                    <div class="modal fade" id="banModal" data-bs-backdrop="static"
+                         data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabelBan"
+                         aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title"
+                                id="staticBackdropLabelBan">
+                              {{'profile.ban.title' | translate}}
+                            </h5>
+                            <button type="button" class="btn btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <h4>{{'profile.banUser' | translate}}</h4>
+                          </div>
+                          <div class="modal-footer">
+                            <button (click)="tryBan(profileUser.id)" type="submit"
+                                    id="acceptBanBtn" name="adminBtn"
+                                    data-bs-dismiss="modal"
+                                    class="btn btn-outline-dark ban-btn">
+                              {{'profile.accept' | translate}}
+                            </button>
+                            <div class="spinner-border" id="loadingBan"
+                                 role="status">
+                              <span class="sr-only"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="user != null && user.roles.includes('ADMIN') && (!profileUser.roles.includes('ADMIN') || user.roles.includes('MANAGER')) && profileUser.roles.includes('BANNED')" style="display: flex; justify-content: center">
+                    <button type="button" class="btn btn-dark btn-ban"
+                            data-bs-toggle="modal"
+                            data-bs-target="#unbanModal"><fa-icon
+                      [icon]="adminActionIcon"
+                      style="color: red"
+                      aria-hidden="true"></fa-icon>
+                      {{'profile.unban' | translate}}
+                    </button>
+                    <div class="modal fade" id="unbanModal"
+                         data-bs-backdrop="static"
+                         data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabelUnban"
+                         aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title"
+                                id="staticBackdropLabelUnban">
+                              {{'profile.unban.title' | translate}}</h5>
+                            <button type="button" class="btn btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <h4>{{'profile.unbanUser' | translate}}</h4>
+                          </div>
+                          <div class="modal-footer">
+                            <button (click)="tryUnban(profileUser.id)" type="submit"
+                                    id="acceptUnbanBtn" name="adminBtn"
+                                    data-bs-dismiss="modal"
+                                    class="btn btn-outline-dark accept-btn">
+                              {{'profile.accept' |translate}}
+                            </button>
+                            <div class="spinner-border" id="loadingUnban"
+                                 role="status">
+                              <span class="sr-only"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 style="margin-left: 22px;">
+                  {{ 'otherProfile.published.recipes' | translate }}
+                </h4>
+              </div>
+              <div id="authored-recipes" style="display: block">
+                <div class="row align-items-center justify-content-center container-fluid">
+                  <div class="col-12 p-0">
+                    <div class="container-fluid p-0" style="margin-bottom: 100px;">
+                      <div class="row align-items-center justify-content-center w-100 m-0">
+                        <div *ngIf="recipePr.results.length == 0; else showRec">
+                          <div class="empty-msg">
+                            <p>{{ 'otherProfile.emptyRec' | translate }}</p>
+                          </div>
+                        </div>
+                        <ng-template #showRec>
+                          <div class="container-fluid p-0" style="margin-bottom: 100px;">
+                            <div class="row align-items-center justify-content-center w-100 m-0">
+                              <div class="col-12 mt-3 col-md-12 col-lg-6 col-xl-4 col-xxl-4 mb-4 mb-md-0 align-items-center justify-content-center" *ngFor="let recipe of recipePr.results">
+                                <app-recipe-card *ngIf="loadedRecipes" [recipe] = recipe ></app-recipe-card>
+                              </div>
+                            </div>
+                          </div>
+                          <app-pagination *ngIf="recipePr.pages>1"
+                                          (changePage)="onRecipePageChange($event)"
+                                          [current]="recipePq.page"
+                                          [pages]="recipePr.pages">
+                          </app-pagination>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

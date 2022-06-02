@@ -1,0 +1,350 @@
+<div class="container" *ngIf="loaded">
+  <div class="content-lg p-5 content-container">
+    <div class="row w-100 m-0 recipe-container">
+      <div class="title-author-container" style="padding-bottom: 0">
+        <div class="row w-100" id="toprow">
+          <div class="col-10 col-lg-8 col-md-8 col-sm-6" style="word-wrap: break-word;">
+            <h1>{{recipe.recipeTitle}}</h1>
+          </div>
+          <div class="col-2 col-lg-4 col-md-4 col-sm-6 d-flex" id="share-btn">
+            <span *ngIf="user" style="transform: translate(-0%,-13%);">
+              <button *ngIf="isAdmin && recipe.highlighted; else recNotHighlighted" type="submit" (click)="highlight()"
+                      class="highlight-btn" style="color: #cda434;">
+                <fa-icon style="font-size: 2em;" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+              </button>
+              <ng-template #recNotHighlighted>
+                <button *ngIf="isAdmin && !recipe.highlighted" (click)="highlight()" type="submit" class="highlight-btn"
+                        style="color: #cdcdcd;">
+                  <fa-icon style="font-size: 2em;" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+                </button>
+              </ng-template>
+              <button *ngIf="isFaved; else elseFavBlock" (click)="unfav()" type="submit" name="fav"
+                      class="fav-button-faved" style="color: #93c021">
+                <fa-icon style="font-size: 2em;" [icon]="favIcon" aria-hidden="true"></fa-icon>
+              </button>
+              <ng-template #elseFavBlock>
+                <button (click)="fav()" type="submit" name="fav" class="fav-button" style="color: #cdcdcd;">
+                  <fa-icon style="font-size: 2em;" [icon]="favIcon" aria-hidden="true"></fa-icon>
+                </button>
+              </ng-template>
+              <button *ngIf="!isAdmin && recipe.highlighted;" type="submit"
+                      class="highlight-btn" style="color: #cda434; cursor:default">
+                <fa-icon style="font-size: 2em;" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+              </button>
+            </span>
+            <span *ngIf="!user" style="transform: translate(-0%,-13%);">
+            <button *ngIf="recipe.highlighted;" type="submit"
+                    class="fav-button-faved" style="color: #cda434; cursor: default;">
+                <fa-icon style="font-size: 2em;" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+            </button>
+            </span>
+            <div class="publish-button-container">
+              <button type="button" class="btn btn-dark btn-share" data-bs-toggle="modal"
+                      data-bs-target="#shareModal">
+                <fa-icon style="color:#93c021;" [icon]="shareIcon" aria-hidden="true"></fa-icon>
+                {{'recPage.shareBtn' | translate }}
+              </button>
+              <app-share [recipeId]="recipe.idRecipe"></app-share>
+            </div>
+          </div>
+        </div>
+        <div class="row w-100">
+          <div class="col-12" *ngIf="recipe.author.username != null ; else elseBlock">
+            <h3>{{'by' | translate}} <a [routerLink]="['/profile',recipe.author.id]"
+                                        class="profile-url">{{ recipe.author.username }}
+            </a>
+            </h3>
+          </div>
+          <ng-template #elseBlock>
+            <h3>{{'recPage.anonymus' | translate}}</h3>
+          </ng-template>
+        </div>
+        <div class="row w-100"><h5>{{'recPage.publishedOn' | translate: {date: recipe.recipeDateCreated} }} </h5>
+        </div>
+        <div class="row w-100 m-0" *ngIf="recipe.recipeTime != null">
+          <p class="p-0" style="margin-bottom: 0px;">
+            <fa-icon [icon]="clockIcon" style="margin-right: 5px"
+                     aria-hidden="true"></fa-icon>
+            {{'recPage.minutes' | translate: {mins: recipe.recipeTime} }}
+          </p>
+        </div>
+        <div class="row w-100 m-0" style="margin-top: 0">
+
+          <p class="p-0" *ngIf="recipe.recipeDifficulty == 1"
+             style="margin-bottom: 0px;color:green;padding-bottom: 6px;">
+            <fa-icon [icon]="gaugeIcon"
+                     style="margin-right: 2px"
+                     aria-hidden="true"></fa-icon>
+            {{difficultyString}}</p>
+
+          <p class="p-0" *ngIf="recipe.recipeDifficulty == 2"
+             style="margin-bottom: 0px;color:orange;padding-bottom: 6px;">
+            <fa-icon [icon]="gaugeIcon"
+                     style="margin-right: 2px"
+                     aria-hidden="true"></fa-icon>
+            {{difficultyString}}</p>
+          <p class="p-0" *ngIf="recipe.recipeDifficulty == 3"
+             style="margin-bottom: 0px;color:red;padding-bottom: 6px;">
+            <fa-icon [icon]="gaugeIcon"
+                     style="margin-right: 2px"
+                     aria-hidden="true"></fa-icon>
+            {{difficultyString}}</p>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <div class="col-2" style="padding-left: 5%;">
+            <div class="row">
+              <div class="col-4" style="text-align: end;">
+                <button *ngIf="isLiked; else elseLikedBlock" type="submit" name="like" value=true class="rate-button"
+                        style="color: #93c021" (click)="like()">
+                  <fa-icon [icon]="thumbsUpIcon" style="margin-right: 3px" transform="grow-18"></fa-icon>
+                </button>
+                <ng-template #elseLikedBlock>
+                  <button type="submit" name="like" value=true class="rate-button" (click)="like()">
+                    <fa-icon [icon]="thumbsUpIcon" style="margin-right: 3px" transform="grow-18"></fa-icon>
+                  </button>
+                </ng-template>
+              </div>
+              <div class="col-4" style="text-align: end; margin-left: 5%">
+                <button *ngIf="isDisliked; else elseDislikedBlock" type="submit" name="like" value=true
+                        class="rate-button" style="color: red" (click)="disLike()">
+                  <fa-icon [icon]="thumbsDownIcon" transform="grow-18"></fa-icon>
+                </button>
+                <ng-template #elseDislikedBlock>
+                  <button type="submit" name="like" value=true class="rate-button" (click)="disLike()">
+                    <fa-icon [icon]="thumbsDownIcon" style="margin-right: 3px" transform="grow-18"></fa-icon>
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row w-100" style="margin-top: 16px">
+          <div class="col-3" style="padding-left: 0px; padding-right: 0px;">
+            <div *ngIf="likePercentage != -1; else elsePercentageBlock" type="submit" name="like" value=true
+                 class="rate-button" style="color: red" (click)="disLike()">
+              <div class="row w-100 justify-content-center align-items-center" style="margin-bottom: 12px;">
+                <div class="col-9" style="padding-right: 0px;">
+                  <div class="progress">
+                    <div *ngIf="likePercentage == 0; else elseNotZeroBlock" style="padding-left: 45%">
+                      <div class="progress-bar progressbar-empty" role="progressbar"
+                           style="width:100%; padding-left:45%; padding-right: 16px;"
+                           aria-valuemin="0"
+                           aria-valuemax="100">0%
+                      </div>
+                    </div>
+                    <ng-template #elseNotZeroBlock>
+                      <div class="progress-bar" role="progressbar" style="width:{{likePercentage}}%"
+                           aria-valuemin="0" aria-valuemax="100">{{ likePercentage }}%
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="col-2" style="padding-left: 0px;">
+                  <h6 class="total-rating" style="padding-left:20%; margin-bottom: 3px; color: black">
+                    ({{ likedReviewsCount }})</h6>
+                </div>
+              </div>
+            </div>
+            <ng-template #elsePercentageBlock>
+              <h6 style="text-align: start; padding-left:15px">
+                {{ 'recPage.notRated' | translate }}
+              </h6>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div id="carouselExampleControls" class="carousel " data-bs-ride="carousel">
+          <ng-template [ngIf]="recipe.imageUrls.length > 0" [ngIfElse]="noImages">
+            <div class="carousel-inner">
+              <div *ngFor="let image of recipe.imageUrls; let i = index" class="carousel-item"
+                   [ngClass]="{'active': i === selectedIndex}" style="height: 100%;">
+                <img src="{{image}}" class="d-block w-100" style="object-fit: contain; height: 100%; " alt="Avatar">
+              </div>
+            </div>
+            <ng-template [ngIf]="recipe.imageUrls.length>1">
+              <button class="carousel-control-prev" (click)="selectPrevious()" type="button"
+                      data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">{{'recPage.image.prev' | translate}}</span>
+              </button>
+              <button class="carousel-control-next" type="button" (click)="selectNext()"
+                      data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">{{'recPage.image.next' | translate}}</span>
+              </button>
+            </ng-template>
+          </ng-template>
+          <ng-template #noImages>
+            <div class="carousel-inner">
+              <div class="carousel-item active" style="height: 100%">
+                <img style="object-fit: contain;height: 100%" class="d-block w-100"
+                     src="assets/images/defaultRecipeImage.png">
+              </div>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="row w-100 m-0 category-div p-0">
+          <div class="col-12 p-0">
+              <span *ngIf="categoryStrings.length > 0">
+                <span *ngFor="let cat of categoryStrings">
+                  <button type="button" class="btn-outline category category-div"
+                          style="margin-bottom: 5px;margin-right: 6px;">{{cat}}</button>
+                </span>
+              </span>
+          </div>
+        </div>
+        <div class="row w-100 m-0">
+          <div class="col-12 ingredient-list">
+            <h3>{{'recPage.ingredients' | translate}}</h3>
+            <ng-template [ngIf]="ingredients.length > 0" [ngIfElse]="ingBlock">
+              <table class="table" style="width:65%" align="center">
+                <tbody>
+                <th style="text-align: center">{{'recPage.ingredient' | translate}}</th>
+                <th style="text-align: center">{{'recPage.quant' | translate}}</th>
+                <tr *ngFor="let ing of ingredients">
+                  <td style="text-align: center; vertical-align: middle">{{ing.ingredientName}}</td>
+                  <td style="text-align: center; vertical-align: middle">{{ing.ingredientQuantity}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </ng-template>
+            <ng-template #ingBlock>
+              <p>{{'recPage.noIngredients' | translate}}</p>
+            </ng-template>
+            <div class="row w-100 m-0" style="padding-left: 0; padding-right: 0">
+              <div class="col-12 description" style="padding-left: 0px;">
+                <h3>{{'recPage.desc' | translate}}</h3>
+                <p>{{recipe.recipeDesc}}</p>
+              </div>
+            </div>
+            <div class="row w-100 m-0" style="padding-left: 0; padding-right: 0">
+              <div class="col-12 steps" style="padding-left: 0px;">
+                <h3>{{'recPage.steps' | translate}}</h3>
+                <p>{{recipe.recipeSteps}}</p>
+              </div>
+            </div>
+            <!--                        DELETE RECIPE-->
+            <div *ngIf="user">
+              <div *ngIf="user.id == recipe.author.id || user.roles.includes('ADMIN')"
+                   class="row justify-content-center align-items-center">
+                <div class="col-3 delete-div">
+                  <button type="button" class="btn btn-dark delete-btn" data-bs-toggle="modal"
+                          data-bs-target="#removeRecipeModal">
+                    <fa-icon [icon]="deleteIcon" style="padding-right: 5px" aria-hidden="true"></fa-icon>
+                    {{'recPage.delBtn' | translate}}
+                  </button>
+                  <div class="modal fade" id="removeRecipeModal" tabindex="-1"
+                       aria-labelledby="removeRecipeModalLabel"
+                       aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title"
+                              id="removeRecipeModalLabel">{{ 'recPage.delete.recipe.title' | translate }}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          {{ 'recPage.delete.recipe' | translate }}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-dark delete-btn popup-delete-btn"
+                                  (click)="removeRecipe(recipe)"
+                                  data-bs-dismiss="modal">{{ 'recPage.delBtn' | translate }}</button>
+                          <div class="spinner-border" id="deleting" role="status">
+                            <span class="sr-only">{{'loading'}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--                    Comments-->
+          <div class="comments" style="padding-bottom: 20px; padding-top: 20px;">
+            <h3>
+              {{ 'recPage.comments' | translate: {totalComments: this.commentsCount} }}
+            </h3>
+            <div class="row">
+              <div *ngIf="user; else commentFormNotLogged">
+                <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" id="commDesc" style="margin-bottom:0;">
+                  <div class="form-group">
+                    <textarea formControlName="commentDesc" type="text" maxlength="300"
+                              id="commentFormTextArea" class="form-control" style="resize: none"
+                              [(ngModel)]="comment"></textarea>
+                    <small>
+                      <p class="comment-comm" id="charNum">
+                        {{ comment.length }} {{ 'recPage.comment.detail' | translate }} {{ maxlength }}
+                      </p>
+                    </small>
+                    <button [disabled]="comment === '' || disabled" class="btn btn-outline-dark submit-comment">
+                          <span *ngIf="!disabled">
+                            {{'recPage.comment' | translate}}
+                          </span>
+                      <span class="spinner-border spinner-border-sm" [hidden]="!disabled"></span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <ng-template #commentFormNotLogged>
+                <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" style="margin-bottom:0;">
+                  <div class="form-group">
+                    <textarea class="form-control comment-input-disabled" disabled></textarea>
+                    <input type="submit" class="btn btn-outline-dark submit-comment"
+                           value="{{ 'recPage.comment' | translate }}"
+                           disabled style="margin-bottom: 12px; margin-top: 12px;">
+                    <p>
+                      {{ 'recPage.comment.1logged' | translate }}<a class="loginlink"
+                                                                    style="text-decoration: none !important;"
+                                                                    routerLink="/login">{{ 'recPage.comment.2logged' | translate }}</a>{{ 'recPage.comment.3logged' | translate }}
+                    </p>
+                  </div>
+                </form>
+              </ng-template>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div *ngIf="loadedComments" class="comments">
+                  <div *ngFor="let comment of commentPr.results; let i = index">
+                    <app-comment [comment]="comment" [recipe]="recipe"></app-comment>
+                  </div>
+                  <app-pagination *ngIf="commentPr.pages > 1"
+                                  (changePage)="onCommentsChangePage($event)"
+                                  [current]="commentPq.page"
+                                  [pages]="commentPr.pages">
+                  </app-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loadedSuggested">
+  <div *ngIf="suggested.length != 0">
+    <div class="row container-fluid landing-container">
+      <div class="col-12 p-0">
+        <div class="col-12 title-div">
+          <div class="col-6">
+            <h2 id="latest" style="padding: 0 0 0 12px;margin-bottom: 0;">
+              {{ 'recPage.suggested' | translate }}
+            </h2>
+          </div>
+        </div>
+        <div class="container-fluid p-0" style="margin-bottom: 100px;">
+          <div class="row align-items-center justify-content-center w-100 m-0">
+            <div *ngFor="let suggestedRec of suggested"
+                 class="col-12 mt-4 col-md-6 col-lg-6 col-xl-3 col-xxl-3 mb-4 mb-md-0 align-items-center justify-content-center">
+              <app-recipe-card *ngIf="loaded" [recipe]=suggestedRec (click)="changeRecipe()"></app-recipe-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

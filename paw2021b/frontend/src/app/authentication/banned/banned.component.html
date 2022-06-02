@@ -1,0 +1,18 @@
+
+    <div class="center">
+        <div class="row">
+            <div class="col-12 h-25 d-flex justify-content-center align-items-center">
+                <h1>{{'banned' | translate}}</h1>
+            </div>
+            <div class="col-12 h-25 d-flex justify-content-center align-items-center">
+                <h1>{{'banned.notAllowed' | translate}}</h1>
+            </div>
+            <div class="col-12 h-25 d-flex justify-content-center align-items-center notFound-btn">
+                <a type="button"
+                 (click)="logout()"
+                 class="btn btn-outline-dark btnClose">
+                {{ 'profile.logoutBtn' | translate }}
+              </a>
+            </div>
+        </div>
+    </div>

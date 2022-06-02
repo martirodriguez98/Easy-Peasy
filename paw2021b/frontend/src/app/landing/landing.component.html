@@ -1,0 +1,86 @@
+<div class="search-text" style="padding-bottom: 0px;">
+  <h1 id="search-title">
+    {{'home.title' | translate}}
+  </h1>
+</div>
+
+<div class="search-box">
+  <div class="col-5 align-items-center">
+    <div class="row align-items-center justify-content-between" style="padding: 10px">
+
+      <div class="p-1 bg-light rounded rounded-pill shadow-sm">
+        <div class="input-group">
+          <input #searchBar placeholder="{{'input.searchPlaceholder' | translate }}"
+                 (keypress)="onSearchEnter($event,searchBar.value)" class="form-control rounded rounded-pill border-0 bg-light" aria-describedby="button-addon1"/>
+          <div class="input-group-append">
+            <button id="buttonSearchForm" type="submit" class="btn btn-link"
+                    style="color:#93c021"><fa-icon [icon]="faSearch" aria-hidden="true" (click)="onSearch(searchBar.value)"
+                                                   style="color: #93c021"></fa-icon></button>
+          </div>
+        </div>
+      </div>
+      <div class="search-subtext">
+          <p>
+            {{'home.search' | translate}}
+          </p>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="publish-button-container">
+  <a *ngIf="user" type="button" class="btn btn-outline-dark publish-btn" [routerLink]="['/recipes','new']">
+    {{'home.publishRecBtn' | translate}}
+  </a>
+</div>
+<!--highlighted-->
+<div class="row align-items-center justify-content-center container-fluid landing-container" style="margin-bottom: 30px">
+  <div class="col-12 p-0">
+    <div class="col-12 title-div">
+      <div class="col-6">
+        <h2 id="highlight" style="padding-left: 12px; margin-bottom: 0">
+          {{'home.highlighted' | translate}}
+        </h2>
+      </div>
+      <div class="col-6 arrow-div">
+        <a type="button" class="btn arrow-btn" id="highlight_arrow" (click)="moreHighlighted()">
+          <h4>{{'home.more' | translate}}
+            <fa-icon [icon] = arrowIcon aria-hidden="true" style="padding-right: 5px"></fa-icon></h4>
+        </a>
+      </div>
+    </div>
+    <div class="container-fluid p-0" >
+      <div class="row align-items-center justify-content-center w-100 m-0">
+        <div *ngFor="let hr of rprHighlighted.results" class="col-12 mt-4 col-md-6 col-lg-6 col-xl-3 col-xxl-3 mb-4 mb-md-0 align-items-center justify-content-center">
+          <app-recipe-card *ngIf="loadedHighlighted" [recipe] = hr></app-recipe-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--latest-->
+<div class="row align-items-center justify-content-center container-fluid landing-container">
+  <div class="col-12 p-0">
+    <div class="col-12 title-div">
+      <div class="col-6">
+        <h2 id="latest" style="padding: 0 0 0 12px;margin-bottom: 0;">
+          {{'home.latest' | translate}}
+        </h2>
+      </div>
+      <div class="col-6 arrow-div">
+        <a type="button" class="btn arrow-btn" id="latest_arrow" (click)="latestSearch()">
+          <h4>{{'home.more' | translate}}
+            <fa-icon [icon] = arrowIcon aria-hidden="true" style="padding-right: 5px"></fa-icon></h4>
+        </a>
+      </div>
+    </div>
+    <div class="container-fluid p-0" style="margin-bottom: 100px;">
+      <div class="row align-items-center justify-content-center w-100 m-0">
+        <div class="col-12 mt-4 col-md-6 col-lg-6 col-xl-3 col-xxl-3 mb-4 mb-md-0 align-items-center justify-content-center" *ngFor="let recipe of rprLatest.results">
+          <app-recipe-card *ngIf="loaded" [recipe] = recipe ></app-recipe-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

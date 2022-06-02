@@ -1,0 +1,73 @@
+.userCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: white;
+    transition: 0.3s;
+    height: 500px;
+}
+
+.userCard:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+}
+
+.container {
+    padding: 0px 0px 0px 10px;
+
+}
+
+.content {
+    position: relative;
+}
+
+.imageContainer{
+    height: 20em;
+}
+
+.cardImage{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.card-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.btn-category{
+    background-color: white !important;
+}
+
+.center {
+    position: absolute;
+    top: 90%;
+    left: 95%;
+    transform: translate(-60%, -50%);
+    display: flex;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-class {
+    color: #93c021;
+    background-color: #ffffff;
+    border: 1px solid #93c021;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 15px;
+}
+
+a{
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.empty-btn{
+    margin-bottom: 5px;
+    color: transparent;
+    border-color: transparent;
+    background: transparent;
+}

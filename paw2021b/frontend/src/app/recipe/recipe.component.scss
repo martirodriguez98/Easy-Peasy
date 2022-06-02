@@ -1,0 +1,373 @@
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loading, #deleting, #deletingComment {
+  display: none;
+}
+
+a.loginlink {
+  color: #93c021 !important;
+}
+
+a.loginlink:hover {
+  color: black !important;
+}
+
+.recipe-container {
+  font-size: medium;
+  background: whitesmoke;
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 70%;
+}
+
+.category-div {
+  margin-top: 10px !important;
+  border-top-width: 10px;
+  padding: 5px 15px !important;
+}
+
+.category-div:hover {
+  cursor: default !important;
+}
+
+.cat {
+  padding: 20px;
+}
+
+.description, .steps, .ingredient-list {
+  padding: 20px;
+}
+
+.difficulty {
+  padding-top: 0px;
+  font-size: 20px;
+}
+
+.title-author-container {
+  padding: 30px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.rating > input {
+  display: none
+}
+
+.rating > label {
+  position: relative;
+  width: 1em;
+  font-size: 3vw;
+  color: #93c021;
+  cursor: pointer
+}
+
+.rating > label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+  opacity: 1 !important
+}
+
+.rating > input:checked ~ label:before {
+  opacity: 1
+}
+
+.rating:hover > input:checked ~ label:before {
+  opacity: 0.4
+}
+
+#share-btn {
+  justify-content: right;
+}
+
+.publish-button-container {
+  float: right;
+}
+
+.btnClose:hover {
+  color: red;
+  background-color: transparent;
+  border-color: red;
+}
+
+.form-control:focus {
+  border-color: lightgrey;
+  box-shadow: inset 0 0 0 1px transparent;
+}
+
+#favcontainer {
+  justify-content: right;
+}
+
+.carousel {
+  display: flex;
+}
+
+.carousel-inner {
+  display: block;
+  width: 100%;
+  height: 27em;
+  align-items: center;
+}
+
+.carousel-inner img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  display: block;
+
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(100%);
+}
+
+
+.blog-comment::before,
+.blog-comment::after,
+.blog-comment-form::before,
+.blog-comment-form::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.blog-comment ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.blog-comment ul.comments ul {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 85px;
+  background-color: whitesmoke !important;
+}
+
+.blog-comment-form {
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 40px;
+}
+
+.blog-comment h3,
+.blog-comment-form h3 {
+  margin-bottom: 40px;
+  font-size: 26px;
+  line-height: 30px;
+}
+
+.rate-button {
+  border: none;
+  background-color: transparent;
+}
+
+.highlight-btn {
+  border: none;
+  background-color: transparent;
+}
+
+.highlight-btn-on {
+  border: none;
+  color: #cda434;
+  background-color: transparent;
+}
+
+.fav-button {
+  border: none;
+  background-color: transparent;
+}
+
+.fav-button-faved {
+  border: none;
+  background-color: transparent;
+  color: #93c021;
+}
+
+#fav {
+  display: inline-block;
+  margin-block-end: 0px;
+}
+
+a.profile-url {
+  color: #93c021 !important;
+}
+
+a.profile-url:hover {
+  color: black !important;
+}
+
+.formError {
+  color: #dc3545;
+  font-size: .875em;
+}
+
+.input-group > .form-control:focus {
+  border-color: #93c021;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.form-control:active {
+  border-color: #93c021;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.br-rad {
+  border-radius: 4px;
+}
+
+.form-control.is-invalid, .form-control:invalid:hover {
+  background-image: none !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent !important;
+
+}
+
+.delete-btn {
+  background-color: red;
+  border-color: red;
+  float: right;
+  color: white;
+  width: 100%;
+  min-width: 8em;
+}
+
+.delete-btn:hover, .delete-btn:focus, .delete-btn:active {
+  color: red !important;
+  background-color: transparent !important;
+  border-color: red !important;
+}
+
+.delete-btn:focus, .delete-btn:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.4);
+}
+
+.delete-div {
+  display: flex;
+  justify-content: center;
+}
+
+.comment-input {
+  width: 100%;
+  min-height: 64px;
+  border-radius: 4px;
+}
+
+.form-control:focus {
+  border-color: #93c021;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 1px #93c021;
+}
+
+.submit-comment {
+  float: right;
+  margin-top: -20px;
+  margin-bottom: 50px;
+}
+
+.submit-comment:hover,
+.submit-comment:active,
+.submit-comment:focus {
+  color: #93c021 !important;
+  background-color: transparent !important;
+  border-color: #93c021 !important;
+}
+
+.popup-delete-btn {
+  width: auto;
+}
+
+.btn-close:focus {
+  color: red !important;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.075), 0 0 0 transparent;
+}
+
+.btn-category {
+  background-color: transparent !important;
+}
+
+.btn-category:hover {
+  cursor: default !important;
+}
+
+.btn-share {
+  background-color: transparent;
+  border-color: black;
+  color: black;
+  min-width: 8em;
+}
+
+.btn-share:hover, .btn-share:focus, .btn-share:active {
+  color: #93c021;
+  background-color: transparent;
+  border-color: #93c021;
+}
+
+.btn-share:focus, .btn-share:active:focus,
+.submit-comment:focus, .submit-comment:active:focus,
+.shareSub-btn:focus, .shareSub-btn:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(147, 192, 33, 0.4);
+  color: #93c021;
+}
+
+.comment-comm {
+  padding-left: 4px;
+}
+
+.btn-check:active + .btn-outline-dark,
+.btn-check:checked + .btn-outline-dark,
+.btn-outline-dark.active,
+.btn-outline-dark.dropdown-toggle.show,
+.btn-outline-dark:active {
+  color: red;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.likes-box {
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.shareSub-btn:hover, .shareSub-btn:active, .shareSub-btn:focus {
+  color: #93c021;
+  background-color: transparent;
+  border-color: #93c021;
+}
+
+.progress {
+  padding: 0;
+}
+
+.progress-bar {
+  background: #93c021;
+}
+
+.total-rating {
+  margin: 0;
+}
+
+.progressbar-empty {
+  background: #e9ecef;
+  color: black;
+}
+
+.error-msg {
+  color: #dc3545;
+  font-size: .875em;
+}

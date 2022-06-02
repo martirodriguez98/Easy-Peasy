@@ -1,0 +1,126 @@
+a.user-profile {
+  color: #93c021 !important;
+}
+
+a.user-profile:hover, .user-profile:active {
+  color: black !important;
+}
+
+.panel-box {
+  margin-left: 0;
+  margin-right: 0;
+}
+.btn-delete{
+  background-color: transparent;
+  color: black;
+  border-color: transparent;
+}
+
+.btn-delete:hover, .btn-delete:focus, .btn-delete:active{
+  color: red;
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: 0 0 0 0.25rem transparent !important;
+}
+
+.btn-ban {
+  background-color: transparent;
+  border-color: black;
+  color: black;
+  min-width: 8em;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.btn-ban:hover, .btn-ban:active, .btn-ban:focus {
+  color: red !important;
+  background-color: transparent !important;
+  border-color: red !important;
+}
+
+.unban-btn:focus, .unban-btn:active:focus, .btn-ban:focus, .btn-ban:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.4);
+}
+
+.unban-btn:hover, .unban-btn:focus, .unban-btn:active {
+  background-color: transparent;
+  color: red;
+  border-color: red;
+}
+
+.dropdown-toggle[aria-expanded="true"], .order-dropdown-btn:focus {
+  background-color: transparent !important;
+}
+
+
+.list-dropdown {
+  float: none;
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.dropdown-item:active {
+  color: black;
+  background-color: transparent;
+}
+
+.dropdown {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+.order-dropdown-btn {
+  text-decoration: none !important;
+  border-color: transparent;
+  color: black;
+}
+
+.order-dropdown-btn:hover,
+.order-dropdown-btn:focus,
+.order-dropdown-btn:active {
+  text-decoration: none !important;
+  box-shadow: 0 0 0 0 transparent;
+  color: black;
+}
+
+.fa-sort-amount-desc {
+  color: #93c021;
+}
+
+.order-choice {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.form-order-input {
+  color: #93c021;
+}
+
+.form-order-input:checked {
+  color: #93c021;
+}
+
+.form-order-input:checked ~ .form-order-input::before {
+  background-color: #93c021;
+}
+
+.orderBy-label {
+  display: block;
+}
+
+.filters-btn {
+  font-weight: normal;
+  font-size: medium;
+  margin-top: 10px !important;
+  border-top-width: 10px;
+  padding: 5px 15px !important;
+  border: none;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.titles {
+  margin-left: 20px;
+}

@@ -1,0 +1,320 @@
+#create-recipe-title {
+  font-size: 55px;
+  margin-top: 20px;
+}
+
+.create-recipe-text {
+  text-align: center;
+  padding: 2%;
+}
+
+.container {
+  text-align: center;
+  font-size: x-large;
+  background: whitesmoke;
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  width: 70%;
+  border-radius: 10px;
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fill {
+  border: none;
+  border-bottom: 2px solid #93c021;
+  outline: none;
+  background-color: whitesmoke;
+}
+
+.divs {
+  margin-bottom: 30px;
+  background-color: white;
+}
+
+.divs:focus {
+  outline: none;
+}
+
+.button-create {
+  background-color: #93c021;
+  border-color: #93c021;
+  color: white;
+}
+
+.button-create:hover, .button-create:focus, .button-create:active {
+  background-color: transparent;
+  border-color: #93c021;
+  color: #93c021;
+}
+
+.btn:hover {
+  color: #93c021;
+  background-color: transparent;
+  border-color: #93c021;
+}
+
+.desc {
+  border-radius: 4px;
+}
+
+.steps {
+  border-radius: 2px;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.file-name {
+  position: absolute;
+  bottom: -35px;
+  left: 10px;
+  font-size: 0.85rem;
+  color: black;
+}
+
+.img-upload {
+  font-size: small;
+}
+
+.difficulty {
+  font-size: medium;
+}
+
+.select-dif {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.table {
+  align-content: space-between;
+  text-align: center;
+  border-color: transparent;
+  width: auto;
+  margin: auto;
+}
+
+.table-rows {
+  margin: auto;
+  justify-content: center;
+  width: 100%;
+}
+
+.table-cells {
+  border: none;
+  border-bottom: 2px solid #93c021;
+  width: 90%;
+  outline: none;
+  background-color: whitesmoke;
+  justify-content: center;
+  font-size: medium;
+}
+
+.table-header {
+  font-size:medium;
+  text-align: center;
+  font-weight: normal;
+}
+
+.category {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.btn-delete {
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.btn-delete:hover, .btn-delete:active, .btn-delete:focus {
+  color: red !important;
+  background-color: transparent !important;
+  border-color: red !important;
+}
+
+.btn-delete:focus, .btn-delete:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.4) !important;
+}
+
+.formError {
+  color: #dc3545;
+  font-size: .575em;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.btn.btn-outline-dark:hover,
+.btn.btn-outline-dark:focus,
+.btn.btn-outline-dark:active,
+.btn.btn-outline-dark.active {
+  color: #93c021;
+  background-color: transparent;
+  border-color: #93c021;
+}
+
+.dropdown-toggle[aria-expanded="true"] {
+  color: #93c021 !important;
+  background-color: transparent !important;
+  border-color: #93c021 !important;
+}
+
+.dropup {
+  width: 100%;
+}
+
+.btn-dark {
+  color: white;
+  background-color: #93c021;
+  border-color: #93c021;
+}
+
+input.ng-invalid.ng-touched{
+  border:1px solid #dc3545;
+}
+
+textarea.ng-invalid.ng-touched{
+  border:1px solid #dc3545;
+}
+
+
+.form-control {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.form-control:focus {
+  border-color: #93c021;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+
+}
+
+.form-control:active {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.form-check-input:checked {
+  background-color: #93c021;
+  border-color: #93c021;
+  color: #93c021;
+}
+
+.form-check-input:focus {
+  border-color: #93c021;
+  box-shadow: 2px 2px 2px 2px transparent;
+}
+
+.form-check-input.is-valid, .was-validated .form-check-input:valid {
+  border-color: #ced4da;
+}
+
+.form-check-input.is-valid:checked, .was-validated .form-check-input:valid:checked {
+  border-color: #ced4da;
+  background-color: #93c021;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.form-control.is-valid:focus, .was-validated .form-control:valid {
+  border-color: #ced4da;
+  background-image: none;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.form-check-control.is-valid:checked, .was-validated .form-check-control:valid:checked {
+  background-color: #93c021;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid:hover {
+  background-image: none;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent !important;
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.form-control, .was-validated .form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.form-control.is-valid:focus, .was-validated .form-control:valid:focus {
+  border-color: #93c021;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent;
+}
+
+.list-dropdown {
+  float: none;
+}
+
+.dropdown-item:active {
+  background-color: transparent;
+  color: black;
+}
+
+.categories-class {
+  margin-bottom: 20px;
+}
+
+.daytime-dropdown {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.category-dropdown {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.create-btn {
+  background-color: #93c021;
+  border-color: #93c021;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 20%;
+}
+
+.btn-check:focus + .btn-dark, .btn-dark:focus {
+  color: #93c021;
+  background-color: whitesmoke;
+  border-color: #93c021;
+}
+
+.category-label {
+  display: block;
+}
+
+.category-drop {
+  font-size: 16px;
+}
+
+.list-dropdown {
+  float: none;
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.newIng-btn:hover, .newIng-btn:focus, .newIng-btn:active {
+  border-color: #93c021;
+  color: #93c021;
+  background-color: transparent;
+}
+
+.newIng-btn:focus, .newIng-btn:active:focus,
+.button-create:focus, .button-create:active:focus, .dropdown-toggle:focus,
+.dropdown-toggle:active:focus,
+.btn-outline-dark.dropdown-toggle.show:focus {
+  box-shadow: 0 0 0 0.25rem rgba(147, 192, 33, 0.4);
+}
+
+.inp{
+  margin-bottom: 30px;
+}

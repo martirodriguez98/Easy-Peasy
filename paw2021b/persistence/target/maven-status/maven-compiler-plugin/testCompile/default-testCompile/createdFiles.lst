@@ -1,0 +1,10 @@
+ar/edu/itba/paw/RecipeCategoryDaoTest.class
+ar/edu/itba/paw/RecipeDaoTest.class
+ar/edu/itba/paw/IngredientDaoTest.class
+ar/edu/itba/paw/UserDaoTest.class
+ar/edu/itba/paw/CommentDaoTest.class
+ar/edu/itba/paw/PasswordTokenDaoTest.class
+ar/edu/itba/paw/ImageDaoTest.class
+ar/edu/itba/paw/VerificationTokenDaoTest.class
+ar/edu/itba/paw/TestConfig.class
+ar/edu/itba/paw/RoleDaoTest.class

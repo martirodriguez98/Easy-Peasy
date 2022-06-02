@@ -1,0 +1,104 @@
+.register-text {
+    text-align: center !important;
+    padding: 2%;
+}
+
+#loading {
+    display: none;
+    align-content: center;
+}
+
+.register-container {
+    font-size: medium;
+    background: whitesmoke;
+    display: block;
+    justify-content: center;
+    margin: 0 auto;
+    width: 70%;
+    border-radius: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.form-group {
+    padding-bottom: 15px;
+}
+
+.reg-btn {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 40% !important;
+}
+
+.reg-btn:hover, .reg-btn:focus, .reg-btn:active {
+    background-color: transparent!important;
+    color: #93c021!important;
+    border-color: #93c021!important;
+}
+
+.reg-btn:focus, .reg-btn:active:focus {
+    box-shadow: 0 0 0 0.25rem rgba(147, 192, 33, 0.4) !important;
+}
+
+.title {
+    margin-top: 20px;
+    font-size: large;
+}
+
+.modal-body {
+    align-content: center;
+    justify-content: center;
+}
+
+
+.input-group > .form-control:focus {
+    border-color: #93c021 !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent !important;
+
+}
+
+.form-control:active,
+.form-control:focus {
+    border-color: #93c021 !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent !important;
+}
+
+.formError {
+    color: #dc3545;
+    font-size: .875em;
+}
+
+.br-rad {
+    border-radius: 4px;
+}
+
+.form-control.is-invalid, .form-control:invalid:hover {
+    background-image: none !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px transparent !important;
+}
+
+.btn-notfound{
+  background-color:#93c021;
+    color: white;
+    border-color: #93c021;
+}
+
+.btn-notfound:hover, .btn-notfound:focus, .btn-notfound:active {
+    background-color: transparent!important;
+    color: #93c021!important;
+    border-color: #93c021!important;
+}
+
+.btn-notfound:focus, .btn-notfound:active:focus {
+    box-shadow: 0 0 0 0.25rem rgba(147, 192, 33, 0.4) !important;
+}

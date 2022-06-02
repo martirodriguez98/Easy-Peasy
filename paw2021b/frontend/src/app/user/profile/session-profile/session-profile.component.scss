@@ -1,0 +1,255 @@
+.panel-container {
+  font-size: medium;
+  background: whitesmoke;
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 70%;
+}
+
+#username {
+  text-align: center;
+  padding-top: 0.5em;
+}
+
+.profile-container {
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding-bottom: 0.5em;
+}
+
+.container-date {
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  border: transparent 1px;
+  background-color: #ededed;
+  width: 30%;
+  border-radius: 5px;
+  min-width: 15em;
+}
+
+.profilePictureContainer {
+  height: 170px;
+  width: 170px;
+  margin: 5% auto 0;
+  padding-top: 1em;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+}
+
+#profile-image {
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: solid #DCDCDC 2px;
+}
+
+.profilePic {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 100%;
+  box-shadow: 0 0 2px #888;
+}
+
+.btn-outline-dark {
+  color: black;
+  background-color: #ededed;
+  border-color: transparent;
+}
+
+.btn-check:active + .btn-outline-dark, .btn-check:checked + .btn-outline-dark, .btn-outline-dark.active, .btn-outline-dark.dropdown-toggle.show, .btn-outline-dark:active {
+  color: white;
+  background-color: #93c021;
+  border-color: transparent;
+}
+
+.btn-check:checked + .btn-outline-dark:focus {
+  box-shadow: 0 0 0 0.25rem rgba(147, 192, 33, 0.4) !important;
+}
+
+.btn:hover {
+  background-color: #93c021;
+  border-color: transparent;
+}
+
+.btnAdminPanel {
+  border-color: black !important;
+  background-color: transparent !important;
+  color: black;
+  width: 30%;
+  min-width: 15em;
+  margin-bottom: 10px;
+}
+
+.btnAdminPanel:hover, .btnAdminPanel:active, .btnAdminPanel:focus {
+  color: #93c021 !important;
+  background-color: transparent !important;
+  border-color: #93c021 !important;
+}
+
+.btnAdminPanel:focus, .btnAdminPanel:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(147, 192, 33, 0.4);
+}
+
+.btn-list {
+
+}
+
+.btnClose {
+  border-color: black;
+  background-color: transparent;
+  width: 30%;
+  min-width: 15em;
+}
+
+.btnClose:hover, .btnClose:active, .btnClose:focus {
+  color: red !important;
+  background-color: transparent;
+  border-color: red !important;
+}
+
+.btnClose:focus, .btnClose:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.4);
+}
+
+.btn-group {
+  padding-left: 5%;
+}
+
+.changeImgBtn {
+  align-items: center;
+  margin-left: 75%;
+  margin-top: -20%;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  border: none;
+}
+
+.editBtn {
+  background-color: #ededed;
+  display: inline-block;
+  border-radius: 60px;
+  box-shadow: 0 0 2px #888;
+  padding: 0.5em 0.5em;
+  z-index: 1;
+}
+
+.empty-msg {
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 50px;
+}
+
+#loading, #loadingBan, #loadingUnban, #loadingRemoveAdmin {
+  display: none;
+}
+
+.ban-btn {
+  color: black;
+  border-color: black;
+  background-color: transparent;
+}
+
+.ban-btn:hover, .ban-btn:active, .ban-btn:focus {
+  color: red;
+  border-color: red;
+  background-color: transparent;
+}
+
+.btn-ban {
+  color: black;
+  background-color: transparent;
+  border-color: black;
+  min-width: 8em;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.btn-ban:hover, .btn-ban:active, .btn-ban:focus {
+  color: red !important;
+  background-color: transparent !important;
+  border-color: red !important;
+}
+
+.btn-ban:focus, .btn-ban:active:focus, .ban-btn:focus, .ban-btn:active:focus{
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.4);
+}
+
+.btn-admin {
+  background-color: transparent;
+  border-color: black;
+  color: black;
+  min-width: 8em;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.btn-admin:hover, .btn-admin:focus, .btn-admin:active {
+  color: #93c021;
+  background-color: transparent;
+  border-color: #93c021;
+  box-shadow: 0 0 2px #888;
+}
+
+.btn-admin:focus, .btn-admin:active:focus, .accept-btn:focus, .accept-btn:active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(147, 192, 33, 0.4);
+}
+
+.accept-btn:hover, .accept-btn:active, .accept-btn:focus {
+  color: #93c021 !important;
+  background-color: transparent;
+  border-color: #93c021 !important;
+}
+
+.accept-btn {
+  color: black;
+  background-color: transparent;
+  border-color: black;
+}
+
+.btn-close:focus, .btn-close:hover {
+  box-shadow: 0 0 0 0.25rem transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.other-profile {
+  padding-bottom: 30px !important;
+}
+
+.profile-margin {
+  margin-left: 0;
+}
+
+.btn-check:checked+.btn-list,
+.btn-check:checked+.btn-list:active,
+.btn-check:checked+.btn-list:active:focus,
+.btn-check:checked+.btn-list:hover{
+  color:white!important;
+  background-color: #93c021 !important;
+  border-color: #93c021 !important;
+}
+
+.btn-list{
+  color:#888 !important;
+  border-color: #888 !important;
+  background-color: transparent;
+}
+
+.btn-list:active,
+.btn-list:hover,
+.btn-list:active:focus{
+  background-color: transparent;
+  color: #93c021 !important;
+  border-color: #93c021 !important;
+}

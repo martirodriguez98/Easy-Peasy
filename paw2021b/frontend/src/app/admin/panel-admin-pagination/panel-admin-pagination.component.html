@@ -1,0 +1,78 @@
+<div class="row panel-box">
+  <div *ngIf="adminPr.results.length == 0" class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+    <p style="margin-left: 16px;">
+      {{'admin.panel.emptyadmin' | translate}}
+    </p>
+  </div>
+  <div *ngIf="adminPr.results.length > 0">
+    <div class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+      <button class="btn btn-link order-dropdown-btn " type="button" id="dropdownOrderAdm"
+              data-bs-toggle="dropdown" aria-expanded="false">
+        <fa-icon [icon]=sortIcon
+                 data-bs-toggle="dropdown"
+                 aria-expanded="false"></fa-icon>
+        {{'search.orderBy' | translate}}
+      </button>
+      <button *ngIf="byUser" type="button" class="btn-outline filters-btn"
+              style="color:#cda434; background-color:dimgrey;cursor: default">
+        <fa-icon [icon]="userIcon" aria-hidden="true"></fa-icon>
+        {{'username' | translate}}
+      </button>
+      <button *ngIf="byId" type="button" class="btn-outline filters-btn"
+              style="color:#cda434; background-color:dimgrey;cursor: default">
+        <fa-icon [icon]="idIcon" aria-hidden="true"></fa-icon>
+        ID
+      </button>
+      <ul class="dropdown-menu">
+        <li class="list-dropdown">
+          <label for="order_by_id_username_admin" class="orderBy-label">
+            <a class="dropdown-item">
+              <p class="orderBy">
+                <input type="radio" id="order_by_id_username_admin"
+                       class="form-order-input radio-btn" name="flexRadioDefault"
+                       (click)="changeAdminOrder('BY_USERNAME')"/>
+                {{'admin.panel.by_username' | translate}}
+              </p>
+            </a>
+          </label>
+          <label for="order_by_id_admin" class="orderBy-label">
+            <a class="dropdown-item">
+              <p class="orderBy">
+                <input type="radio" id="order_by_id_admin"
+                       class="form-order-input radio-btn" name="flexRadioDefault"
+                       (click)="changeAdminOrder('BY_ID')" checked/>
+                {{'admin.panel.by_id' | translate}}
+              </p>
+            </a>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <div class="row justify-content-center panel-box" style="margin-bottom: 20px">
+      <table class="table table-user" align="center">
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: center">id</th>
+          <th scope="col" style="text-align: center">
+            {{'admin.panel.username' | translate}}
+          </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let adm of adminPr.results">
+          <th scope="row" style="text-align: center">{{adm.id}}</th>
+          <td style="text-align: center"><a class="user-profile"
+                                            [routerLink]="['/profile', adm.id]">{{adm.username}}</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <app-pagination *ngIf="adminPr.pages>1"
+                  (changePage)="onPageChangeAdm($event)"
+                  [current]="adminPqAdm.page"
+                  [pages]="adminPr.pages">
+  </app-pagination>
+</div>

@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <div class="container-lg p-5 content-container" style="min-height: 75%">
+    <div class="row w-50 m-0 align-items-center justify-content-center login-container">
+      <div class="col-12">
+        <h1 class="text-center title">
+          {{'login' | translate }}
+        </h1>
+      </div>
+      <div class="col-12">
+        <div class="container-fluid px-0">
+          <form [formGroup]="loginForm" id="loginForm" (ngSubmit)="onSubmitLogin()">
+            <div class="row">
+              <div class="col-12">
+                <label class="form-label">
+                  {{'login.username' | translate}}
+                </label>
+                <input formControlName="username" type="text" class="form-control"
+                       style="text-transform:lowercase"/>
+                <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
+                  <span *ngIf="loginForm.get('username').errors['required']" class="error-msg">
+                    {{'login.invalidFeedback.username' | translate}}
+                  </span>
+                  <span *ngIf="loginForm.get('username').errors['minlength']" class="error-msg">
+                        {{'Size.registerForm.username.min' | translate: {min: minUsernameLength} }}
+                        </span>
+                  <span *ngIf="loginForm.get('username').errors['maxlength']" class="error-msg">
+                      {{'Size.registerForm.username.max' | translate: {max: maxUsernameLength} }}
+                      </span>
+                </span>
+              </div>
+            </div>
+            <div class="col-12 mt-2">
+              <div class="row">
+                <label for="password" class="form-label">
+                  {{'login.password' | translate}}
+                </label>
+                <div class="col-12">
+                  <div class="input-group">
+                    <input autocomplete="on" formControlName="password" [type]="showPass ? 'password' : 'text'"
+                           class="form-control" id="password" name="password" aria-describedby="password input">
+
+                    <div class="input-group-append">
+                      <button id="passwordEye" type="button"
+                              (click)="toggleEye()"
+                              class="btnEye form-control shadow-none">
+                        <fa-icon [icon]="showPass ? faEyeSlash : faEye"></fa-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-12 px-0 d-flex justify-content-start align-items-center">
+                  <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+                        <span *ngIf="loginForm.get('password').errors['required']" class="error-msg">
+                          {{'Size.registerForm.password' | translate: {min: minPassLength, max: maxPassLength} }}
+                        </span>
+                        <span *ngIf="loginForm.get('password').errors['maxlength']" class="error-msg">
+                        {{'Size.registerForm.password.max' | translate: {max: maxPassLength} }}
+                        </span>
+                        <span *ngIf="loginForm.get('password').errors['minlength']" class="error-msg">
+                        {{'Size.registerForm.password.min' | translate: {min: minPassLength} }}
+                        </span>
+                  </span>
+                  </div>
+                  <div class="invalid-feedback">
+                    {{'login.invalidFeedback.password' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-6 form-check">
+                  <label class="form-check-label"><input class="form-check-input"
+                                                         name="j_rememberme"
+                                                         type="checkbox"/>
+                    {{'login.rememberMe' | translate}}
+                  </label>
+                </div>
+                <div class="col-6 passReset">
+                  <app-req-reset-pass></app-req-reset-pass>
+                </div>
+              </div>
+            </div>
+             <div *ngIf="error" class="col-12 mt-2 d-flex align-items-sm-start px-0">
+                      <p class="error-msg">
+                        {{'login.error' | translate }}
+                      </p>
+                    </div>
+            <div class="row justify-content-center align-items-center">
+              <div class="col-6 px-0 d-flex align-items-center justify-content-center">
+                <button form="loginForm" [disabled]="disable" class="btn btn-outline-dark login-btn">
+                  <span *ngIf="!disable">
+                        {{'login' | translate}}
+                      </span>
+                  <span class="spinner-border spinner-border-sm" [hidden]="!disable"></span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

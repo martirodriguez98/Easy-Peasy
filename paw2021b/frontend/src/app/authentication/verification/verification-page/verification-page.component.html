@@ -1,0 +1,17 @@
+<div class="center">
+        <div class="row" *ngIf="loaded">
+                    <div *ngIf="verified === 'true'" class="col-12 h-25 d-flex justify-content-center align-items-center">
+                      <h1>{{'verif.account' | translate}}</h1>
+                    </div>
+
+                    <div *ngIf="verified === 'false'" class="col-12 h-25 d-flex justify-content-center align-items-center">
+                      <h1>{{'verif.expired' | translate}}</h1>
+                    </div>
+                    <div class="col-12 h-25 d-flex justify-content-center align-items-center notFound-btn">
+                        <a type="button" class="btn btn-dark btn-notfound" [routerLink]="['/']">
+                            <fa-icon [icon] = homeIcon></fa-icon>
+                            {{'navBar.home' | translate}}
+                        </a>
+                    </div>
+        </div>
+</div>

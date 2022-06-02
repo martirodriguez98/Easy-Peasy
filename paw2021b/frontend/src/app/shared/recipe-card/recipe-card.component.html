@@ -1,0 +1,108 @@
+<div class="card">
+  <div class="imageContainer">
+      <span style="transform: translate(-4%,-15%);">
+              <button *ngIf="isAdmin && recipe.highlighted; else recNotHighlighted" (click)="highlight()" type="submit"
+                      class="highlight-btn" style="color: #cda434;">
+                <fa-icon style="font-size: 2em;" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+              </button>
+              <ng-template #recNotHighlighted>
+                <button *ngIf="isAdmin && !isHighlighted" (click)="highlight()" type="submit" class="highlight-btn"
+                        style="color: #cdcdcd;">
+                  <fa-icon style="font-size: 2em;" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+                </button>
+              </ng-template>
+              <button *ngIf="!isAdmin && !user && recipe.highlighted;" type="submit"
+                      class="fav-button" style="color: #cda434;">
+                <fa-icon style="font-size: 2em; cursor:default" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+              </button>
+        </span>
+    <span *ngIf="user" style="transform: translate(-4%,-15%);">
+              <button *ngIf="isFaved; else elseFavBlock" (click)="unfav()" type="submit" name="fav"
+                      class="fav-button" style="cursor: pointer; color: #93c021">
+                <fa-icon style="font-size: 2em;" [icon]="favIcon" aria-hidden="true"></fa-icon>
+              </button>
+              <ng-template #elseFavBlock>
+                <button (click)="fav()" type="submit" name="fav" class="fav-button"
+                        style="cursor: pointer; color: #cdcdcd;">
+                  <fa-icon style="font-size: 2em;" [icon]="favIcon" aria-hidden="true"></fa-icon>
+                </button>
+              </ng-template>
+              <button *ngIf="!isAdmin && recipe.highlighted;" type="submit"
+                      class="highlight-btn" style="color: #cda434;">
+                <fa-icon style="font-size: 2em; cursor:default" [icon]="highlightIcon" aria-hidden="true"></fa-icon>
+              </button>
+        </span>
+    <a [routerLink]="['/recipes',recipe.idRecipe]">
+
+      <img *ngIf="coverUrl.length == 0" class="cardImage" src='assets/images/defaultRecipeImage.png' alt="Avatar"
+           style="width:100%">
+      <img *ngIf="coverUrl.length >0" class="cardImage"
+           src="{{coverUrl}}"
+           alt="Avatar"
+           style="width:100%">
+    </a>
+
+  </div>
+  <a [routerLink]="['/recipes',recipe.idRecipe]">
+
+    <div style="padding: 1.25rem">
+      <div class="row">
+        <h4 class="card-title m-0"
+            style="margin-top: 0; margin-bottom: 0; height:30px">{{recipe.recipeTitle || ''}}</h4>
+        <div class="col-12 my-1" *ngIf="recipe.author.username != null ; else elseBlock">
+          <p class="card-text m-0"
+             style="margin-top: 0">{{'recipe.by' | translate: {user: recipe.author.username} }}</p>
+        </div>
+        <ng-template #elseBlock>
+          <p class="card-text m-0"
+             style="margin-top: 0">{{'recPage.anonymus' | translate}}</p>
+        </ng-template>
+      </div>
+      <div class="row" style="padding-bottom: 6px">
+        <p *ngIf="recipe.recipeTime != '' " style="margin-bottom: 0px;">
+          <fa-icon [icon]="clockIcon" style="margin-right: 2px" aria-hidden="true"></fa-icon>
+          {{'recPage.minutes' | translate: {mins: recipe.recipeTime} }}</p>
+      </div>
+      <div class="row">
+        <p *ngIf="recipe.recipeDifficulty == 1" style="margin-bottom: 0px;color:green;padding-bottom: 6px;">
+          <fa-icon [icon]="gaugeIcon" style="margin-right: 2px" aria-hidden="true"></fa-icon>
+          {{difficultyString}}
+        </p>
+        <p *ngIf="recipe.recipeDifficulty == 2" style="margin-bottom: 0px;color:orange;padding-bottom: 6px;">
+          <fa-icon [icon]="gaugeIcon" style="margin-right: 2px" aria-hidden="true"></fa-icon>
+          {{difficultyString}}
+        </p>
+        <p *ngIf="recipe.recipeDifficulty == 3" style="margin-bottom: 0px;color:red;padding-bottom: 6px;">
+          <fa-icon [icon]="gaugeIcon" style="margin-right: 2px" aria-hidden="true"></fa-icon>
+          {{difficultyString}}
+        </p>
+      </div>
+      <div class="row">
+        <div *ngIf="likePercentage != -1">
+          <h6>
+            <fa-icon [icon]="likeIcon" aria-hidden="true"
+                     [ngStyle]="getStyles(likePercentage)"></fa-icon>
+            <b style="margin-left: 6px">{{likePercentage.toFixed(2)}}%</b>
+            <small style="font-size: 15px; margin-left: 6px">({{recipe.likesCount + dislikes}})</small>
+          </h6>
+        </div>
+        <div *ngIf="likePercentage == -1">
+          <p>{{'recPage.notRated' | translate}}</p>
+        </div>
+      </div>
+      <div class="row align-items-center justify-content-center">
+        <div style="padding-right: 0px;">
+          <button *ngIf="categoryStrings.length == 0" type="button"
+                  class="btn-class btn-outline btn-category empty-btn">EMPTY
+          </button>
+          <span *ngIf="categoryStrings.length > 0">
+            <span *ngFor="let cat of categoryStrings; index as i">
+              <button *ngIf="i < 3" class="category category-div btn-outline"
+                      style="margin-bottom: 5px;margin-right: 6px;">{{cat}}</button>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

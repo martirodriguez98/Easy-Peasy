@@ -1,0 +1,196 @@
+<div class="row panel-box">
+  <div *ngIf="reportsPr.results.length == 0" class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+    <p style="margin-left: 16px;">
+      {{'admin.panel.emptyreports' | translate}}
+    </p>
+  </div>
+  <div *ngIf="reportsPr.results.length > 0">
+    <div class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+      <div *ngIf="reportsPr.results.length > 0">
+        <div class="col-10 col-lg-8 col-md-8 col-sm-6 titles panel-display">
+          <button class="btn btn-link order-dropdown-btn " type="button" id="dropdownOrderAdm"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            <fa-icon [icon]=sortIcon
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false"></fa-icon>
+            {{'search.orderBy' | translate}}
+          </button>
+          <button *ngIf="byReported" type="button" class="btn-outline filters-btn"
+                  style="color:#cda434; background-color:dimgrey;cursor: default">
+            <fa-icon [icon]="userIcon" aria-hidden="true"></fa-icon>
+            {{'admin.panel.reported' | translate }}
+          </button>
+          <button *ngIf="byReporter" type="button" class="btn-outline filters-btn"
+                  style="color:#cda434; background-color:dimgrey;cursor: default">
+            <fa-icon [icon]="userIcon" aria-hidden="true"></fa-icon>
+            {{'admin.panel.reporter' | translate}}
+          </button>
+          <button *ngIf="byNewest" type="button" class="btn-outline filters-btn"
+                  style="color:#cda434; background-color:dimgrey;cursor: default">
+            <fa-icon [icon]="clockIcon" aria-hidden="true"></fa-icon>
+            {{'search.orderBy.date.desc' | translate}}
+          </button>
+          <button *ngIf="byOldest" type="button" class="btn-outline filters-btn"
+                  style="color:#cda434; background-color:dimgrey;cursor: default">
+            <fa-icon [icon]="clockIcon" aria-hidden="true"></fa-icon>
+            {{'search.orderBy.date.asc' | translate}}
+          </button>
+          <ul class="dropdown-menu">
+            <li class="list-dropdown">
+              <label for="order_by_newest" class="orderBy-label">
+                <a class="dropdown-item">
+                  <p class="orderBy">
+                    <input type="radio" id="order_by_newest"
+                           class="form-order-input radio-btn" name="flexRadioDefault"
+                           (click)="changeReportOrder('NEWEST')" checked/>
+                    {{'search.orderBy.date.desc' | translate}}
+                  </p>
+                </a>
+              </label>
+              <label for="order_by_oldest" class="orderBy-label">
+                <a class="dropdown-item">
+                  <p class="orderBy">
+                    <input type="radio" id="order_by_oldest"
+                           class="form-order-input radio-btn" name="flexRadioDefault"
+                           (click)="changeReportOrder('OLDEST')"/>
+                    {{'search.orderBy.date.asc' | translate}}
+                  </p>
+                </a>
+              </label>
+              <label for="order_by_reported" class="orderBy-label">
+                <a class="dropdown-item">
+                  <p class="orderBy">
+                    <input type="radio" id="order_by_reported"
+                           class="form-order-input radio-btn" name="flexRadioDefault"
+                           (click)="changeReportOrder('BY_REPORTED')"/>
+                    {{'admin.panel.reported' | translate}}
+                  </p>
+                </a>
+              </label>
+              <label for="order_by_reporter" class="orderBy-label">
+                <a class="dropdown-item">
+                  <p class="orderBy">
+                    <input type="radio" id="order_by_reporter"
+                           class="form-order-input radio-btn" name="flexRadioDefault"
+                           (click)="changeReportOrder('BY_REPORTER')"/>
+                    {{'admin.panel.reporter' | translate}}
+                  </p>
+                </a>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-center panel-box" style="margin-bottom: 20px">
+      <table class="table" align="center">
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: center">{{"admin.panel.reported" | translate}}</th>
+          <th scope="col" style="text-align: center">{{"admin.panel.reporter" | translate}}</th>
+          <th scope="col" style="text-align: center">{{"admin.panel.reported.comment" | translate}}</th>
+          <th scope="col" style="text-align: center">{{"admin.panel.description" | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let r of reportsPr.results">
+          <td style="text-align: center"><a class="user-profile"
+                                            [routerLink]="['/profile', r.reported.id]">{{r.reported.username}}</a>
+          </td>
+          <td style="text-align: center"><a class="user-profile"
+                                            [routerLink]="['/profile', r.reporter.id]">{{r.reporter.username}}</a>
+          </td>
+          <td style="text-align: center">{{r.comment.commentDesc}}</td>
+          <td style="text-align: center">{{r.desc}}</td>
+          <td style="text-align: right; padding-right: 0;padding-left: 0; min-width:13em">
+            <button *ngIf="r.reported.id != user.id && ((!r.reported.roles.includes('ADMIN')) || (user.roles.includes('MANAGER')))" type="button" class="btn btn-dark btn-ban" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#unbanModal' + r.idReport">
+              <fa-icon [icon]=banIcon
+                       style="color: red"
+                       aria-hidden="true"></fa-icon>
+              {{'profile.ban' | translate}}
+            </button>
+            <div class="modal fade" [id]="'unbanModal' + r.idReport" data-bs-backdrop="static"
+                 data-bs-keyboard="false"
+                 tabindex="-1" aria-labelledby="staticBackdropLabelUnbanR"
+                 aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabelUnbanR">
+                      {{'profile.ban.title' | translate}}
+                    </h5>
+                    <button type="button" class="btn btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body" style="text-align: center">
+                    <h4>
+                      {{'profile.banUser' | translate}}
+                    </h4>
+                  </div>
+                  <div class="modal-footer">
+                    <button (click)="tryBan(r.reported.id)" type="submit"
+                            id="acceptUnbanBtnR" name="adminBtn" data-bs-dismiss="modal"
+                            class="btn btn-outline-dark unban-btn">
+                      {{'profile.accept' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+
+
+          <td style="text-align: center; padding-right: 0;padding-left: 0; min-width:13em">
+            <button type="button" class="btn btn-dark btn-delete" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#deleteReportModal' + r.idReport">
+              <fa-icon [icon]=deleteIcon aria-hidden="true"></fa-icon>
+            </button>
+            <div class="modal fade" [id]="'deleteReportModal' + r.idReport" data-bs-backdrop="static"
+                 data-bs-keyboard="false"
+                 tabindex="-1" aria-labelledby="staticBackdropLabelDeleteReport"
+                 aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabelUnban">
+                      {{'admin.panel.delete.report' | translate}}
+                    </h5>
+                    <button type="button" class="btn btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <h4>
+                      {{'admin.panel.delete.report.body' | translate}}
+                    </h4>
+                  </div>
+                  <div class="modal-footer">
+                    <button (click)="tryDeleteReport(r.idReport)" type="submit"
+                            id="acceptUnbanBtn" name="adminBtn" data-bs-dismiss="modal"
+                            class="btn btn-outline-dark unban-btn">
+                      {{'profile.accept' | translate}}
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <app-pagination *ngIf="reportsPr.pages>1"
+                  (changePage)="onPageChangeReports($event)"
+                  [current]="reportsPq.page"
+                  [pages]="reportsPr.pages">
+  </app-pagination>
+</div>
